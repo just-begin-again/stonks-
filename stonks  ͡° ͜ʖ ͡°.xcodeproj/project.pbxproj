@@ -15,6 +15,7 @@
 		14AECAF4293361A800220307 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14AECAF2293361A800220307 /* LaunchScreen.storyboard */; };
 		14AECAFF2933670C00220307 /* CurrenciesWithRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECAFE2933670C00220307 /* CurrenciesWithRates.swift */; };
 		14AECB0129337DC300220307 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECB0029337DC300220307 /* NetworkController.swift */; };
+		14AECB032933824A00220307 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECB022933824A00220307 /* CurrencyModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		14AECAF5293361A800220307 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14AECAFE2933670C00220307 /* CurrenciesWithRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesWithRates.swift; sourceTree = "<group>"; };
 		14AECB0029337DC300220307 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		14AECB022933824A00220307 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				14AECAFE2933670C00220307 /* CurrenciesWithRates.swift */,
+				14AECB022933824A00220307 /* CurrencyModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			files = (
 				14AECB0129337DC300220307 /* NetworkController.swift in Sources */,
 				14AECAEC293361A700220307 /* ViewController.swift in Sources */,
+				14AECB032933824A00220307 /* CurrencyModel.swift in Sources */,
 				14AECAE8293361A700220307 /* AppDelegate.swift in Sources */,
 				14AECAFF2933670C00220307 /* CurrenciesWithRates.swift in Sources */,
 				14AECAEA293361A700220307 /* SceneDelegate.swift in Sources */,

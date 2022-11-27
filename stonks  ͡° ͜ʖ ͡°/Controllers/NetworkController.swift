@@ -10,18 +10,19 @@ import Foundation
 class NetworkController {
     
     let baseURL = "https://www.cbr-xml-daily.ru/latest.js"
+    var currencies = [Currency]()
     
     func parse(JSON: Data) {
-        do {
-            let decoder = JSONDecoder()
-            let currenciesWR = try decoder.decode(CurrenciesWR.self, from: JSON)
-            print(currenciesWR.rates)
-            print(currenciesWR.currencies)
-            print(currenciesWR.ratesToRub)
-            print("----===========-------============-------========")
-        } catch {
-            print("decoding failed")
+        
+        let decoder = JSONDecoder()
+        let currenciesWR = try? decoder.decode(CurrenciesWR.self, from: JSON)
+        
+        if currenciesWR != nil {
+            for (key, value) in currenciesWR!.rates! {
+                currencies.append(Currency(code: key, rateToRub: value))
+            }
         }
+        print(currencies)
     }
     
     func fetchJSON(urlStr: String, completion: @escaping (Result<Data, Error>) -> Void) {
