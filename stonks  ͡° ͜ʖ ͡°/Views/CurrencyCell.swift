@@ -23,7 +23,7 @@ class CurrencyCell: UITableViewCell {
         }
     }
     
-    func setConstr(to label: UILabel) {
+    func setupApperance(for label: UILabel) {
         label.numberOfLines = 1
         label.font.withSize(25)
         label.adjustsFontSizeToFitWidth = true
