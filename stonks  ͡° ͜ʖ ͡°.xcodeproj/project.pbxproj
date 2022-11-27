@@ -14,6 +14,7 @@
 		14AECAF1293361A800220307 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14AECAF0293361A800220307 /* Assets.xcassets */; };
 		14AECAF4293361A800220307 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14AECAF2293361A800220307 /* LaunchScreen.storyboard */; };
 		14AECAFF2933670C00220307 /* CurrenciesWithRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECAFE2933670C00220307 /* CurrenciesWithRates.swift */; };
+		14AECB0129337DC300220307 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECB0029337DC300220307 /* NetworkController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		14AECAF3293361A800220307 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14AECAF5293361A800220307 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14AECAFE2933670C00220307 /* CurrenciesWithRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesWithRates.swift; sourceTree = "<group>"; };
+		14AECB0029337DC300220307 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				14AECAEB293361A700220307 /* ViewController.swift */,
+				14AECB0029337DC300220307 /* NetworkController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14AECB0129337DC300220307 /* NetworkController.swift in Sources */,
 				14AECAEC293361A700220307 /* ViewController.swift in Sources */,
 				14AECAE8293361A700220307 /* AppDelegate.swift in Sources */,
 				14AECAFF2933670C00220307 /* CurrenciesWithRates.swift in Sources */,
