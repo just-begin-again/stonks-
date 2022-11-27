@@ -9,7 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    
     var netContr = NetworkController()
+    @IBOutlet weak var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

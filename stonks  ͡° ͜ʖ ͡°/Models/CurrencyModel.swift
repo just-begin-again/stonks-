@@ -11,6 +11,7 @@ struct Currency: Codable {
     
     var code: String
     var rateToRub: Double
+    var isChecked: Bool = false
     
     struct Currencies: Codable {
         var results: [Currency]
