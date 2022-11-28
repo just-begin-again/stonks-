@@ -15,29 +15,34 @@ class CurrencyCell: UITableViewCell {
     @IBOutlet weak var currencyLabelView: UIView!
     @IBOutlet weak var currencyLabel: UILabel!
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        if (selected) {
-            currencyLabel.textColor = UIColor(hex: "3F72AF")
-        } else {
-            currencyLabel.textColor = UIColor(hex: "F9F7F7")
-        }
-    }
+    //    override func setSelected(_ selected: Bool, animated: Bool) {
+    //        if (selected) {
+    //            currencyLabel.textColor = UIColor(hex: "3F72AF")
+    //        } else {
+    //            currencyLabel.textColor = UIColor(hex: "F9F7F7")
+    //        }
+    //    }
     
     func setupApperance(for label: UILabel) {
-        label.numberOfLines = 1
-        label.font.withSize(25)
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.01
-        label.textColor = UIColor(hex: "F9F7F7")
+        //        label.numberOfLines = 1
+        //        label.font.withSize(25)
+        //        label.adjustsFontSizeToFitWidth = true
+        //        label.minimumScaleFactor = 0.01
+        //        label.textColor = UIColor(hex: "F9F7F7")
         
     }
     
-    func setConstr(to imageView: UIImageView) {
-        imageView.sizeToFit()
-        imageView.frame.size.height = 50
-        imageView.frame.size.width = 50
-        imageView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+    func setCircleLayer(for view: UIView) {
+        
+        let CircleLayer = CAShapeLayer()
+        let center = CGPoint (x: view.frame.size.width / 2, y: view.frame.size.height / 2)
+        let circleRadius = view.frame.size.height / 2
+        let circlePath = UIBezierPath(arcCenter: center, radius: circleRadius, startAngle: CGFloat(Double.pi), endAngle: CGFloat(Double.pi * 4), clockwise: true)
+        CircleLayer.path = circlePath.cgPath
+        view.layer.mask = CircleLayer
+        view.contentMode = .scaleAspectFill
     }
+    
 }
 
 //MARK: - Color Hex
@@ -64,5 +69,25 @@ extension UIColor {
             blue:  Double(b) / 255,
             alpha: Double(a) / 255
         )
+    }
+}
+
+extension UIImage {
+    // image with rounded corners
+    public func withRoundedCorners(radius: CGFloat? = nil) -> UIImage? {
+        let maxRadius = min(size.width, size.height) / 2
+        let cornerRadius: CGFloat
+        if let radius = radius, radius > 0 && radius <= maxRadius {
+            cornerRadius = radius
+        } else {
+            cornerRadius = maxRadius
+        }
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        let rect = CGRect(origin: .zero, size: size)
+        UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius).addClip()
+        draw(in: rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
 }

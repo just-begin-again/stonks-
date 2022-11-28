@@ -19,10 +19,11 @@ class NetworkController {
         
         if currenciesWR != nil {
             for (key, value) in currenciesWR!.rates! {
-                currencies.append(Currency(code: key, rateToRub: value))
+                if key == "CZK" {
+                    currencies.append(Currency(code: key, rateToRub: value))
+                }
             }
         }
-        print(currencies)
     }
     
     func fetchJSON(urlStr: String, completion: @escaping (Result<Data, Error>) -> Void) {
@@ -39,6 +40,8 @@ class NetworkController {
             urlSession.resume()
         }
     }
-    
-    
 }
+
+
+
+
