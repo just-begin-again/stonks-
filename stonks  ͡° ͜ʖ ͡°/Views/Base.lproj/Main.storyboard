@@ -81,9 +81,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJT-Se-lBj">
-                                            <rect key="frame" x="0.0" y="0.0" width="128.66666666666666" height="21"/>
+                                            <rect key="frame" x="-20" y="0.0" width="128.66666666666666" height="21"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pQx-NZ-Az8">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQx-NZ-Az8">
                                                     <rect key="frame" x="0.0" y="0.0" width="128.66666666666666" height="21"/>
                                                 </imageView>
                                             </subviews>
@@ -96,10 +96,16 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rb0-gh-ERX">
-                                            <rect key="frame" x="128.66666666666666" y="0.0" width="261.33333333333337" height="21"/>
+                                            <rect key="frame" x="108.66666666666666" y="0.0" width="281.33333333333337" height="21"/>
                                             <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7e2-97-Gdj" userLabel="Number Label">
+                                                    <rect key="frame" x="-35" y="0.0" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2R9-g5-5ov">
-                                                    <rect key="frame" x="0.0" y="0.0" width="261.33333333333331" height="21"/>
+                                                    <rect key="frame" x="240.00000000000003" y="0.0" width="41.333333333333343" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -107,10 +113,12 @@
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstItem="2R9-g5-5ov" firstAttribute="top" secondItem="Rb0-gh-ERX" secondAttribute="top" id="378-fh-1QD"/>
-                                                <constraint firstAttribute="bottom" secondItem="2R9-g5-5ov" secondAttribute="bottom" id="ahf-Zb-oBU"/>
-                                                <constraint firstItem="2R9-g5-5ov" firstAttribute="leading" secondItem="Rb0-gh-ERX" secondAttribute="leading" id="gqh-cv-Qzf"/>
-                                                <constraint firstAttribute="trailing" secondItem="2R9-g5-5ov" secondAttribute="trailing" id="wvB-kN-7rA"/>
+                                                <constraint firstAttribute="trailing" secondItem="2R9-g5-5ov" secondAttribute="trailing" id="J0D-qk-QQ1"/>
+                                                <constraint firstAttribute="bottom" secondItem="2R9-g5-5ov" secondAttribute="bottom" id="KQg-Ov-fJH"/>
+                                                <constraint firstItem="7e2-97-Gdj" firstAttribute="leading" secondItem="Rb0-gh-ERX" secondAttribute="leading" constant="-35" id="Y0R-d5-7OI"/>
+                                                <constraint firstItem="7e2-97-Gdj" firstAttribute="top" secondItem="Rb0-gh-ERX" secondAttribute="top" id="YH1-cp-UQ0"/>
+                                                <constraint firstItem="2R9-g5-5ov" firstAttribute="top" secondItem="Rb0-gh-ERX" secondAttribute="top" id="eGw-wH-lB9"/>
+                                                <constraint firstAttribute="bottom" secondItem="7e2-97-Gdj" secondAttribute="bottom" id="qh1-Et-Z0g"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -121,7 +129,7 @@
                                         <constraint firstItem="iJT-Se-lBj" firstAttribute="width" secondItem="SUk-nY-iRv" secondAttribute="width" multiplier="0.33" id="Xx1-QR-asU"/>
                                         <constraint firstItem="Rb0-gh-ERX" firstAttribute="top" secondItem="SUk-nY-iRv" secondAttribute="top" id="coX-t0-9du"/>
                                         <constraint firstAttribute="bottom" secondItem="Rb0-gh-ERX" secondAttribute="bottom" id="eDI-01-ke0"/>
-                                        <constraint firstItem="iJT-Se-lBj" firstAttribute="leading" secondItem="SUk-nY-iRv" secondAttribute="leading" id="sDx-uD-9ya"/>
+                                        <constraint firstItem="iJT-Se-lBj" firstAttribute="leading" secondItem="SUk-nY-iRv" secondAttribute="leading" constant="-20" id="sDx-uD-9ya"/>
                                         <constraint firstItem="iJT-Se-lBj" firstAttribute="top" secondItem="SUk-nY-iRv" secondAttribute="top" id="xFZ-53-aPf"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -137,6 +145,7 @@
                                     <outlet property="currencyLabelView" destination="Rb0-gh-ERX" id="Wgw-tj-ZtX"/>
                                     <outlet property="flagImageView" destination="pQx-NZ-Az8" id="3MN-Kp-cUX"/>
                                     <outlet property="flagView" destination="iJT-Se-lBj" id="UBq-Aa-nxO"/>
+                                    <outlet property="numberLabel" destination="7e2-97-Gdj" id="w1S-z1-6p7"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -18,7 +18,7 @@ class ViewController: UITableViewController {
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
-            
+        
         
         view.backgroundColor = UIColor(hex: "F9F7F7")
         
@@ -28,7 +28,7 @@ class ViewController: UITableViewController {
             case .failure(let error): print(error)
             }
         }
-
+        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.tableView.reloadData()
@@ -42,41 +42,57 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let currency = netContr.currencies[indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: "reusableCell", for: indexPath) as! CurrencyCell
-       
-            
-//            cell.backgroundColor = UIColor(hex: "CDD3E0")
-            cell.currencyCellView.backgroundColor = UIColor(hex: "CDD3E0")
+        let currency = netContr.currencies[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reusableCell", for: indexPath) as! CurrencyCell
+        
+        
+        cell.backgroundColor = UIColor(hex: "CDD3E0")
+        cell.currencyCellView.backgroundColor = UIColor(hex: "CDD3E0")
+        cell.flagView.backgroundColor = UIColor(hex: "CDD3E0")
         cell.currencyLabelView.backgroundColor = UIColor(hex: "CDD3E0")
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
-            
-            cell.flagImageView.image = UIImage(named: currency.code.lowercased())
-            cell.setCircleLayer(for: cell.flagView)
+        
+        
+        
+        //        label.
+        //        label.adjustsFontSizeToFitWidth = true
+        //        label.minimumScaleFactor = 0.01
+        //        label.textColor = UIColor(hex: "F9F7F7")
+        
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
+        
+        cell.flagImageView.image = UIImage(named: currency.code.lowercased())
+        cell.setCircleLayer(for: cell.flagView)
+        
+        
+        
+        cell.numberLabel.text = "\(currency.code.uppercased())"
+        cell.currencyLabel.text = "\(String(format: "%.2f", (1.0/currency.rateToRub)))"
+        
+        cell.currencyLabel.textColor = UIColor(hex: "F9F7F7")
+        cell.currencyLabel.numberOfLines = 1
+        cell.currencyLabel.adjustsFontSizeToFitWidth = true
+        cell.currencyLabel.minimumScaleFactor = 2.4
+//        cell.currencyLabel.font = UIFont.monospacedSystemFont(ofSize: 90, weight: .ultraLight)
+
 
         
+        //        cell.setupApperance(for: cell.currencyLabel)
         
-            
-            
-            
-            cell.currencyLabel.text = " \(1.0/currency.rateToRub) \(currency.code.uppercased())"
-            //        cell.setupApperance(for: cell.currencyLabel)
-            
-            return cell
-        }
+        return cell
+    }
     
     
     
     
     //MARK: - UITableViewDelegate Methods
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath) as! CurrencyCell
-//        cell.currencyLabel.textColor = UIColor(hex: "3F72AF")
-//        cell.layer.borderWidth = 3.0
-//        cell.layer.borderColor = UIColor(hex: "3F72AF").cgColor
-//
-//        tableView.deselectRow(at: indexPath, animated: true)
-//    }
+    //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        let cell = tableView.cellForRow(at: indexPath) as! CurrencyCell
+    //        cell.currencyLabel.textColor = UIColor(hex: "3F72AF")
+    //        cell.layer.borderWidth = 3.0
+    //        cell.layer.borderColor = UIColor(hex: "3F72AF").cgColor
+    //
+    //        tableView.deselectRow(at: indexPath, animated: true)
+    //    }
 }
 

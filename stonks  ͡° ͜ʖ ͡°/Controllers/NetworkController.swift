@@ -19,12 +19,11 @@ class NetworkController {
         
         if currenciesWR != nil {
             for (key, value) in currenciesWR!.rates! {
-                if key == "CZK" {
                     currencies.append(Currency(code: key, rateToRub: value))
                 }
             }
         }
-    }
+    
     
     func fetchJSON(urlStr: String, completion: @escaping (Result<Data, Error>) -> Void) {
         if let url = URL(string: urlStr) {
