@@ -9,6 +9,7 @@ import UIKit
 
 class CurrencyCell: UITableViewCell {
     @IBOutlet weak var currencyCellView: UIView!
+    @IBOutlet weak var backView: UIView!
     
     @IBOutlet weak var flagView: UIView!
     @IBOutlet weak var flagImageView: UIImageView!
@@ -16,13 +17,33 @@ class CurrencyCell: UITableViewCell {
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
     
-    //    override func setSelected(_ selected: Bool, animated: Bool) {
-    //        if (selected) {
-    //            currencyLabel.textColor = UIColor(hex: "3F72AF")
-    //        } else {
-    //            currencyLabel.textColor = UIColor(hex: "F9F7F7")
-    //        }
-    //    }
+        override func setSelected(_ selected: Bool, animated: Bool) {
+            if (selected) {
+                currencyLabel.textColor = C.text.color.accentText
+                numberLabel.textColor = C.text.color.accentText
+               
+                
+                currencyCellView.backgroundColor = C.colors.outline
+                setCircleLayer(for: flagImageView)
+                flagImageView.backgroundColor = C.colors.outline
+                
+                
+                
+            } else {
+                currencyLabel.textColor = C.text.color.cuttedOutText
+                numberLabel.textColor = C.text.color.cuttedOutText
+                
+                currencyCellView.backgroundColor = .clear
+                flagImageView.backgroundColor = C.colors.background
+            }
+        }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
+    }
+    
+
     
     func setupApperance(for label: UILabel) {
         //        label.numberOfLines = 1
@@ -42,6 +63,7 @@ class CurrencyCell: UITableViewCell {
         CircleLayer.path = circlePath.cgPath
         view.layer.mask = CircleLayer
         view.contentMode = .scaleAspectFill
+       
     }
     
 }

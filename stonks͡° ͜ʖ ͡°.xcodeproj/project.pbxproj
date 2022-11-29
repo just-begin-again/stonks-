@@ -17,6 +17,7 @@
 		14AECB0129337DC300220307 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECB0029337DC300220307 /* NetworkController.swift */; };
 		14AECB032933824A00220307 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECB022933824A00220307 /* CurrencyModel.swift */; };
 		14AECB0529339E1B00220307 /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECB0429339E1B00220307 /* CurrencyCell.swift */; };
+		14D00D822936099A003BF00E /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D00D812936099A003BF00E /* C.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		14AECB0029337DC300220307 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		14AECB022933824A00220307 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		14AECB0429339E1B00220307 /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
+		14D00D812936099A003BF00E /* C.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				14AECAFE2933670C00220307 /* CurrenciesWithRates.swift */,
 				14AECB022933824A00220307 /* CurrencyModel.swift */,
+				14D00D812936099A003BF00E /* C.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 				14AECB032933824A00220307 /* CurrencyModel.swift in Sources */,
 				14AECAE8293361A700220307 /* AppDelegate.swift in Sources */,
 				14AECB0529339E1B00220307 /* CurrencyCell.swift in Sources */,
+				14D00D822936099A003BF00E /* C.swift in Sources */,
 				14AECAFF2933670C00220307 /* CurrenciesWithRates.swift in Sources */,
 				14AECAEA293361A700220307 /* SceneDelegate.swift in Sources */,
 			);

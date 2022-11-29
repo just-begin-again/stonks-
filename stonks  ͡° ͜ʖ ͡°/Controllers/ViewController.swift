@@ -19,8 +19,16 @@ class ViewController: UITableViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
+//        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        tableView.backgroundColor = .clear
+//        tableView.sectionHeaderHeight = 40
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 70
         
-        view.backgroundColor = UIColor(hex: "F9F7F7")
+        tableView.backgroundColor = C.colors.background
+        
+        
+//        view.backgroundColor = UIColor(hex: "F9F7F7")
         
         self.netContr.fetchJSON(urlStr: self.netContr.baseURL) { (result) in
             switch result {
@@ -36,6 +44,7 @@ class ViewController: UITableViewController {
     }
     
     
+    
     //MARK: - DataSource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return netContr.currencies.count
@@ -44,24 +53,31 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currency = netContr.currencies[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "reusableCell", for: indexPath) as! CurrencyCell
+       
+        let radius = cell.backView.frame.height / 2
+        cell.backView.layer.cornerRadius = radius
+        cell.currencyCellView.layer.cornerRadius = cell.currencyCellView.frame.height / 2
         
         
-        cell.backgroundColor = UIColor(hex: "CDD3E0")
-        cell.currencyCellView.backgroundColor = UIColor(hex: "CDD3E0")
-        cell.flagView.backgroundColor = UIColor(hex: "CDD3E0")
+        
+//        cell.flagView.backgroundColor = .clear
+        cell.setCircleLayer(for: cell.flagImageView)
+        cell.flagImageView.backgroundColor = .red
+       
+        cell.backView.backgroundColor = UIColor(hex: "CDD3E0")
         cell.currencyLabelView.backgroundColor = UIColor(hex: "CDD3E0")
+        cell.backgroundColor = .clear
         
-        
-        
-        //        label.
-        //        label.adjustsFontSizeToFitWidth = true
-        //        label.minimumScaleFactor = 0.01
-        //        label.textColor = UIColor(hex: "F9F7F7")
         
         cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
-        
+//        cell.flagImageView.translatesAutoresizingMaskIntoConstraints = false
+//        cell.flagImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        cell.flagImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
         cell.flagImageView.image = UIImage(named: currency.code.lowercased())
         cell.setCircleLayer(for: cell.flagView)
+      
+//        cell.flagImageView.sizeToFit()
+        
         
         
         
@@ -71,7 +87,7 @@ class ViewController: UITableViewController {
         cell.currencyLabel.textColor = UIColor(hex: "F9F7F7")
         cell.currencyLabel.numberOfLines = 1
         cell.currencyLabel.adjustsFontSizeToFitWidth = true
-        cell.currencyLabel.minimumScaleFactor = 2.4
+        cell.currencyLabel.minimumScaleFactor = 0.01
 //        cell.currencyLabel.font = UIFont.monospacedSystemFont(ofSize: 90, weight: .ultraLight)
 
 
