@@ -47,13 +47,13 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rb0-gh-ERX">
                                                     <rect key="frame" x="95.333333333333343" y="0.0" width="260.66666666666663" height="60.333333333333336"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7e2-97-Gdj" userLabel="Number Label">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7e2-97-Gdj" userLabel="Currency Label">
                                                             <rect key="frame" x="-34.999999999999993" y="0.0" width="75.333333333333329" height="60.333333333333336"/>
                                                             <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="25"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2R9-g5-5ov">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2R9-g5-5ov">
                                                             <rect key="frame" x="185.33333333333337" y="0.0" width="75.333333333333314" height="60.333333333333336"/>
                                                             <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="25"/>
                                                             <nil key="textColor"/>
@@ -101,11 +101,11 @@
                                 <connections>
                                     <outlet property="backView" destination="kgQ-XC-fig" id="dk7-Ud-aae"/>
                                     <outlet property="currencyCellView" destination="SUk-nY-iRv" id="eyh-Fh-a3J"/>
-                                    <outlet property="currencyLabel" destination="2R9-g5-5ov" id="bMp-g1-E39"/>
+                                    <outlet property="currencyLabel" destination="7e2-97-Gdj" id="w1S-z1-6p7"/>
                                     <outlet property="currencyLabelView" destination="Rb0-gh-ERX" id="Wgw-tj-ZtX"/>
                                     <outlet property="flagImageView" destination="pQx-NZ-Az8" id="3MN-Kp-cUX"/>
                                     <outlet property="flagView" destination="iJT-Se-lBj" id="UBq-Aa-nxO"/>
-                                    <outlet property="numberLabel" destination="7e2-97-Gdj" id="w1S-z1-6p7"/>
+                                    <outlet property="numberLabel" destination="2R9-g5-5ov" id="bMp-g1-E39"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

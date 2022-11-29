@@ -23,6 +23,7 @@
 		14D00D8E293644B5003BF00E /* EDITION_ stonks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D8D293644B5003BF00E /* EDITION_ stonks.ttf */; };
 		14D00D91293647F0003BF00E /* Courier New.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D8F293647F0003BF00E /* Courier New.ttf */; };
 		14D00D92293647F0003BF00E /* Courier New Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D90293647F0003BF00E /* Courier New Bold.ttf */; };
+		14D00D9429366D09003BF00E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D00D9329366D09003BF00E /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		14D00D8D293644B5003BF00E /* EDITION_ stonks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EDITION_ stonks.ttf"; sourceTree = "<group>"; };
 		14D00D8F293647F0003BF00E /* Courier New.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Courier New.ttf"; sourceTree = "<group>"; };
 		14D00D90293647F0003BF00E /* Courier New Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Courier New Bold.ttf"; sourceTree = "<group>"; };
+		14D00D9329366D09003BF00E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,10 +78,10 @@
 		14AECAE6293361A700220307 /* stonks  ͡° ͜ʖ ͡° */ = {
 			isa = PBXGroup;
 			children = (
-				14D00D8329363A19003BF00E /* Resources */,
 				14AECAFD2933620100220307 /* Models */,
 				14AECAFB293361E900220307 /* Controllers */,
 				14AECAFC293361F600220307 /* Views */,
+				14D00D8329363A19003BF00E /* Resources */,
 				14AECAE7293361A700220307 /* AppDelegate.swift */,
 				14AECAE9293361A700220307 /* SceneDelegate.swift */,
 				14AECAF2293361A800220307 /* LaunchScreen.storyboard */,
@@ -119,8 +121,9 @@
 		14D00D8329363A19003BF00E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				14AECAF0293361A800220307 /* Assets.xcassets */,
 				14D00D8429363A3E003BF00E /* Fonts */,
+				14D00D9329366D09003BF00E /* Extensions.swift */,
+				14AECAF0293361A800220307 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14AECB0129337DC300220307 /* NetworkController.swift in Sources */,
+				14D00D9429366D09003BF00E /* Extensions.swift in Sources */,
 				14AECAEC293361A700220307 /* ViewController.swift in Sources */,
 				14AECB032933824A00220307 /* CurrencyModel.swift in Sources */,
 				14AECAE8293361A700220307 /* AppDelegate.swift in Sources */,

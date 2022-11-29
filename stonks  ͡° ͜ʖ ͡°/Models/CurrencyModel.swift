@@ -12,6 +12,7 @@ struct Currency: Codable {
     var code: String
     var rateToRub: Double
     var isChecked: Bool = false
+    var priority: Int
     
     struct Currencies: Codable {
         var results: [Currency]

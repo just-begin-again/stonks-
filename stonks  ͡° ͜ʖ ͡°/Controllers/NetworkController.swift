@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkController {
     
-    let baseURL = "https://www.cbr-xml-daily.ru/latest.js"
+    let baseURL = C.net.urlStr
     var currencies = [Currency]()
     
     func parse(JSON: Data) {
@@ -19,13 +19,19 @@ class NetworkController {
         
         if currenciesWR != nil {
             for (key, value) in currenciesWR!.rates! {
-                if key == "CZK" || key == "CAD" {
-                    currencies.append(Currency(code: key, rateToRub: value))
+                if key == "USD" {
+                    currencies.append(Currency(code: key, rateToRub: value, priority: 3))
+                } else if key == "EUR" {
+                    currencies.append(Currency(code: key, rateToRub: value, priority: 2))
+                } else {
+                    currencies.append(Currency(code: key, rateToRub: value, priority: 0))
                 }
             }
         }
+        currencies.sort {
+            ($0.priority, $1.code) > ($1.priority, $0.code)
+        }
     }
-    
     
     func fetchJSON(urlStr: String, completion: @escaping (Result<Data, Error>) -> Void) {
         if let url = URL(string: urlStr) {

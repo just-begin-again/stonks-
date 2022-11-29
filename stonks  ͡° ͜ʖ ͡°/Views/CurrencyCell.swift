@@ -14,53 +14,39 @@ class CurrencyCell: UITableViewCell {
     @IBOutlet weak var flagView: UIView!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var currencyLabelView: UIView!
-    @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var currencyLabel: UILabel!
     
-        override func setSelected(_ selected: Bool, animated: Bool) {
-            if (selected) {
-                currencyLabel.textColor = C.text.color.accentText
-                currencyLabel.font = UIFont(name: "Courier New Bold", size: 30)
-                
-                numberLabel.font = UIFont(name: "Courier New Bold", size: 30)
-                numberLabel.textColor = C.text.color.accentText
-               
-                
-                currencyCellView.backgroundColor = C.colors.outline
-                setCircleLayer(for: flagImageView)
-                flagImageView.backgroundColor = C.colors.outline
-                
-                
-                
-            } else {
-                currencyLabel.textColor = C.text.color.cuttedOutText
-                numberLabel.textColor = C.text.color.cuttedOutText
-                
-                currencyLabel.font = UIFont(name: "Courier New", size: 25)
-                numberLabel.font = UIFont(name: "Courier New", size: 25)
-                
-                currencyCellView.backgroundColor = .clear
-                flagImageView.backgroundColor = C.colors.background
-            }
-        }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
+    func setupApperance() {
+        setShape()
+        setColor()
     }
     
-
+    private func setShape() {
+        let radius = backView.frame.height / 2
+        backView.layer.cornerRadius = radius
+        currencyCellView.layer.cornerRadius = currencyCellView.frame.height / 2
+        setCircleLayer(for: flagImageView)
+        setCircleLayer(for: flagView)
+        separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
+        
+        currencyLabel.numberOfLines = 1
+        currencyLabel.adjustsFontSizeToFitWidth = true
+        currencyLabel.minimumScaleFactor = 0.01
+        numberLabel.numberOfLines = 1
+        numberLabel.adjustsFontSizeToFitWidth = true
+        numberLabel.minimumScaleFactor = 0.01
+    }
     
-    func setupApperance(for label: UILabel) {
-        //        label.numberOfLines = 1
-        //        label.font.withSize(25)
-        //        label.adjustsFontSizeToFitWidth = true
-        //        label.minimumScaleFactor = 0.01
-        //        label.textColor = UIColor(hex: "F9F7F7")
+    private func setColor() {
+        backView.backgroundColor = C.colors.cellsMain
+        currencyLabelView.backgroundColor = C.colors.cellsMain
+        backgroundColor = .clear
         
     }
     
-    func setCircleLayer(for view: UIView) {
+    private func setCircleLayer(for view: UIView) {
         
         let CircleLayer = CAShapeLayer()
         let center = CGPoint (x: view.frame.size.width / 2, y: view.frame.size.height / 2)
@@ -72,31 +58,37 @@ class CurrencyCell: UITableViewCell {
        
     }
     
-}
-
-//MARK: - Color Hex
-extension UIColor {
-    convenience init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (1, 1, 1, 0)
+    override internal func setSelected(_ selected: Bool, animated: Bool) {
+        if (selected) {
+            numberLabel.textColor = C.text.color.accentText
+            currencyLabel.textColor = C.text.color.accentText
+            
+            numberLabel.font = UIFont(name: "Courier New Bold", size: 30)
+            currencyLabel.font = UIFont(name: "Courier New Bold", size: 30)
+            
+            setCircleLayer(for: flagImageView)
+            setCircleLayer(for: flagView)
+            currencyCellView.backgroundColor = C.colors.outline
+            flagImageView.backgroundColor = C.colors.outline
+    
+        } else {
+            numberLabel.textColor = C.text.color.cuttedOutText
+            currencyLabel.textColor = C.text.color.cuttedOutText
+            
+            numberLabel.font = UIFont(name: "Courier New", size: 22)
+            currencyLabel.font = UIFont(name: "Courier New", size: 22)
+            
+            currencyCellView.backgroundColor = .clear
+            flagImageView.backgroundColor = C.colors.background
+            
+            setCircleLayer(for: flagImageView)
+            setCircleLayer(for: flagView)
         }
-        
-        self.init(
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue:  Double(b) / 255,
-            alpha: Double(a) / 255
-        )
     }
+    
+    override internal func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
+    }
+    
 }
