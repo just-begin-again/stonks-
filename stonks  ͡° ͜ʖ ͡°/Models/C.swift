@@ -33,7 +33,10 @@ struct C {
             static var secondaryText = UIColor(hex: "3F72AF")
         }
         
-        
+        struct font {
+            static let main = "VoxRoundWide-Light"
+            static let alt = "Hurme"
+        }
     }
     
     

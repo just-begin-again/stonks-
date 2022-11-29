@@ -28,6 +28,7 @@ class ViewController: UITableViewController {
         tableView.backgroundColor = C.colors.background
         
         
+        
 //        view.backgroundColor = UIColor(hex: "F9F7F7")
         
         self.netContr.fetchJSON(urlStr: self.netContr.baseURL) { (result) in
@@ -79,10 +80,10 @@ class ViewController: UITableViewController {
 //        cell.flagImageView.sizeToFit()
         
         
-        
+        let numberStr = (String(format: "%.2f", (1.0/currency.rateToRub))).replacingOccurrences(of: ".", with: ".")
         
         cell.numberLabel.text = "\(currency.code.uppercased())"
-        cell.currencyLabel.text = "\(String(format: "%.2f", (1.0/currency.rateToRub)))"
+        cell.currencyLabel.text = numberStr
         
         cell.currencyLabel.textColor = UIColor(hex: "F9F7F7")
         cell.currencyLabel.numberOfLines = 1

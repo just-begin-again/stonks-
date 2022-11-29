@@ -18,6 +18,11 @@
 		14AECB032933824A00220307 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECB022933824A00220307 /* CurrencyModel.swift */; };
 		14AECB0529339E1B00220307 /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECB0429339E1B00220307 /* CurrencyCell.swift */; };
 		14D00D822936099A003BF00E /* C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D00D812936099A003BF00E /* C.swift */; };
+		14D00D8629363B61003BF00E /* Hurme.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D8529363B61003BF00E /* Hurme.ttf */; };
+		14D00D8829363C01003BF00E /* VoxRoundWide-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D8729363C01003BF00E /* VoxRoundWide-Light.ttf */; };
+		14D00D8E293644B5003BF00E /* EDITION_ stonks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D8D293644B5003BF00E /* EDITION_ stonks.ttf */; };
+		14D00D91293647F0003BF00E /* Courier New.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D8F293647F0003BF00E /* Courier New.ttf */; };
+		14D00D92293647F0003BF00E /* Courier New Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D90293647F0003BF00E /* Courier New Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +39,11 @@
 		14AECB022933824A00220307 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		14AECB0429339E1B00220307 /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 		14D00D812936099A003BF00E /* C.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C.swift; sourceTree = "<group>"; };
+		14D00D8529363B61003BF00E /* Hurme.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Hurme.ttf; sourceTree = "<group>"; };
+		14D00D8729363C01003BF00E /* VoxRoundWide-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VoxRoundWide-Light.ttf"; sourceTree = "<group>"; };
+		14D00D8D293644B5003BF00E /* EDITION_ stonks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EDITION_ stonks.ttf"; sourceTree = "<group>"; };
+		14D00D8F293647F0003BF00E /* Courier New.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Courier New.ttf"; sourceTree = "<group>"; };
+		14D00D90293647F0003BF00E /* Courier New Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Courier New Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,12 +76,12 @@
 		14AECAE6293361A700220307 /* stonks  ͡° ͜ʖ ͡° */ = {
 			isa = PBXGroup;
 			children = (
+				14D00D8329363A19003BF00E /* Resources */,
 				14AECAFD2933620100220307 /* Models */,
 				14AECAFB293361E900220307 /* Controllers */,
 				14AECAFC293361F600220307 /* Views */,
 				14AECAE7293361A700220307 /* AppDelegate.swift */,
 				14AECAE9293361A700220307 /* SceneDelegate.swift */,
-				14AECAF0293361A800220307 /* Assets.xcassets */,
 				14AECAF2293361A800220307 /* LaunchScreen.storyboard */,
 				14AECAF5293361A800220307 /* Info.plist */,
 			);
@@ -104,6 +114,27 @@
 				14D00D812936099A003BF00E /* C.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		14D00D8329363A19003BF00E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				14AECAF0293361A800220307 /* Assets.xcassets */,
+				14D00D8429363A3E003BF00E /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		14D00D8429363A3E003BF00E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				14D00D90293647F0003BF00E /* Courier New Bold.ttf */,
+				14D00D8F293647F0003BF00E /* Courier New.ttf */,
+				14D00D8D293644B5003BF00E /* EDITION_ stonks.ttf */,
+				14D00D8729363C01003BF00E /* VoxRoundWide-Light.ttf */,
+				14D00D8529363B61003BF00E /* Hurme.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,8 +195,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14D00D8829363C01003BF00E /* VoxRoundWide-Light.ttf in Resources */,
+				14D00D91293647F0003BF00E /* Courier New.ttf in Resources */,
 				14AECAF4293361A800220307 /* LaunchScreen.storyboard in Resources */,
+				14D00D8E293644B5003BF00E /* EDITION_ stonks.ttf in Resources */,
+				14D00D92293647F0003BF00E /* Courier New Bold.ttf in Resources */,
 				14AECAF1293361A800220307 /* Assets.xcassets in Resources */,
+				14D00D8629363B61003BF00E /* Hurme.ttf in Resources */,
 				14AECAEF293361A700220307 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

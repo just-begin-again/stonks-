@@ -20,6 +20,9 @@ class CurrencyCell: UITableViewCell {
         override func setSelected(_ selected: Bool, animated: Bool) {
             if (selected) {
                 currencyLabel.textColor = C.text.color.accentText
+                currencyLabel.font = UIFont(name: "Courier New Bold", size: 30)
+                
+                numberLabel.font = UIFont(name: "Courier New Bold", size: 30)
                 numberLabel.textColor = C.text.color.accentText
                
                 
@@ -32,6 +35,9 @@ class CurrencyCell: UITableViewCell {
             } else {
                 currencyLabel.textColor = C.text.color.cuttedOutText
                 numberLabel.textColor = C.text.color.cuttedOutText
+                
+                currencyLabel.font = UIFont(name: "Courier New", size: 25)
+                numberLabel.font = UIFont(name: "Courier New", size: 25)
                 
                 currencyCellView.backgroundColor = .clear
                 flagImageView.backgroundColor = C.colors.background
