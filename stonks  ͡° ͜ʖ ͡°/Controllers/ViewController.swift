@@ -10,26 +10,12 @@ import SnapKit
 
 class ViewController: UIViewController {
     
-    let tableView = UITableView()
+    var tableView = UITableView()
+
     var netContr = NetworkController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(0)
-            make.left.equalTo(view).offset(0)
-            make.right.equalTo(view).offset(0)
-            make.bottom.equalTo(view).offset(0)
-           
-        }
-        tableView.backgroundColor = C.colors.background
         
         self.netContr.fetchJSON(urlStr: self.netContr.baseURL) { (result) in
             switch result {
@@ -38,11 +24,27 @@ class ViewController: UIViewController {
             }
         }
         
+        configureTableView()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.tableView.reloadData()
         }
     }
+    
+    func configureTableView() {
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        //tableView.rowHeight = 100
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(view).inset(UIEdgeInsets(top: view.frame.height/3, left: 0, bottom: 0, right: 0))
+        }
+        tableView.register(CurrencyCell.self, forCellReuseIdentifier: C.cellIdentifier)
+        
+    }
 }
+
+
     
 //MARK: - DataSource Methods
 extension ViewController: UITableViewDataSource {
@@ -56,7 +58,7 @@ extension ViewController: UITableViewDataSource {
         let currency = netContr.currencies[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: C.cellIdentifier, for: indexPath) as! CurrencyCell
         
-        cell.setupApperance()
+//        cell.setupApperance()
         
         cell.flagImageView.image = UIImage(named: currency.code.lowercased())
         
