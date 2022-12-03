@@ -6,17 +6,29 @@
 //
 
 import UIKit
+import SnapKit
 
-class ViewController: UITableViewController {
+class ViewController: UIViewController {
     
+    let tableView = UITableView()
     var netContr = NetworkController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
         
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(view).offset(0)
+            make.left.equalTo(view).offset(0)
+            make.right.equalTo(view).offset(0)
+            make.bottom.equalTo(view).offset(0)
+           
+        }
         tableView.backgroundColor = C.colors.background
         
         self.netContr.fetchJSON(urlStr: self.netContr.baseURL) { (result) in
@@ -30,13 +42,16 @@ class ViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
+}
     
 //MARK: - DataSource Methods
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return netContr.currencies.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let currency = netContr.currencies[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: C.cellIdentifier, for: indexPath) as! CurrencyCell
@@ -54,3 +69,6 @@ class ViewController: UITableViewController {
     }
 }
 
+extension ViewController: UITableViewDelegate {
+    
+}

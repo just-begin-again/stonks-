@@ -24,7 +24,6 @@
 		14D00D91293647F0003BF00E /* Courier New.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D8F293647F0003BF00E /* Courier New.ttf */; };
 		14D00D92293647F0003BF00E /* Courier New Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14D00D90293647F0003BF00E /* Courier New Bold.ttf */; };
 		14D00D9429366D09003BF00E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D00D9329366D09003BF00E /* Extensions.swift */; };
-		DE768FF5483503543142E51A /* Pods_stonks________.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07FAC1CC50FDD36D8FC067A /* Pods_stonks________.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +48,6 @@
 		14D00D9329366D09003BF00E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1E56E958BFA703D414F9DB54 /* Pods-stonks͡° ͜ʖ ͡°.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks͡° ͜ʖ ͡°.debug.xcconfig"; path = "Target Support Files/Pods-stonks͡° ͜ʖ ͡°/Pods-stonks͡° ͜ʖ ͡°.debug.xcconfig"; sourceTree = "<group>"; };
 		A118E1A0237F77AE383A5A23 /* Pods-stonks͡° ͜ʖ ͡°.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks͡° ͜ʖ ͡°.release.xcconfig"; path = "Target Support Files/Pods-stonks͡° ͜ʖ ͡°/Pods-stonks͡° ͜ʖ ͡°.release.xcconfig"; sourceTree = "<group>"; };
-		D07FAC1CC50FDD36D8FC067A /* Pods_stonks________.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_stonks________.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +55,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE768FF5483503543142E51A /* Pods_stonks________.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +67,6 @@
 				1E56E958BFA703D414F9DB54 /* Pods-stonks͡° ͜ʖ ͡°.debug.xcconfig */,
 				A118E1A0237F77AE383A5A23 /* Pods-stonks͡° ͜ʖ ͡°.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -120,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				14AECAED293361A700220307 /* Main.storyboard */,
-				14AECB0429339E1B00220307 /* CurrencyCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -128,6 +123,7 @@
 		14AECAFD2933620100220307 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				14AECB0429339E1B00220307 /* CurrencyCell.swift */,
 				14AECAFE2933670C00220307 /* CurrenciesWithRates.swift */,
 				14AECB022933824A00220307 /* CurrencyModel.swift */,
 				14D00D812936099A003BF00E /* C.swift */,
@@ -160,7 +156,6 @@
 		44D58A1847E3478B60B519B6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D07FAC1CC50FDD36D8FC067A /* Pods_stonks________.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
