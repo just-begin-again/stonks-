@@ -44,7 +44,7 @@ class CurrencyCell: UITableViewCell {
         
         //flagView
         flagView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(-32)
+            make.left.equalToSuperview().offset(-30)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
