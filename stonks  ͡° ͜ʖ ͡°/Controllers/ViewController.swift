@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = C.colors.background
         
         self.netContr.fetchJSON(urlStr: self.netContr.baseURL) { (result) in
             switch result {
@@ -33,18 +34,18 @@ class ViewController: UIViewController {
     
     func configureTableView() {
         view.addSubview(tableView)
+        tableView.backgroundColor = C.colors.background
         tableView.delegate = self
         tableView.dataSource = self
-        //tableView.rowHeight = 100
+        tableView.rowHeight = 70
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(view).inset(UIEdgeInsets(top: view.frame.height/3, left: 0, bottom: 0, right: 0))
         }
         tableView.register(CurrencyCell.self, forCellReuseIdentifier: C.cellIdentifier)
         
     }
+    
 }
-
-
     
 //MARK: - DataSource Methods
 extension ViewController: UITableViewDataSource {
@@ -58,7 +59,7 @@ extension ViewController: UITableViewDataSource {
         let currency = netContr.currencies[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: C.cellIdentifier, for: indexPath) as! CurrencyCell
         
-//        cell.setupApperance()
+        cell.setupApperance()
         
         cell.flagImageView.image = UIImage(named: currency.code.lowercased())
         
@@ -67,6 +68,7 @@ extension ViewController: UITableViewDataSource {
         cell.currencyLabel.text = "\(currency.code.uppercased())"
         cell.numberLabel.text = numberStr
         
+        
         return cell
     }
 }
@@ -74,3 +76,5 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     
 }
+
+

@@ -9,21 +9,20 @@ import UIKit
 import SnapKit
 
 class CurrencyCell: UITableViewCell {
-    var currencyCellView: UIView!
-    var backView: UIView!
+    var currencyCellView = UIView()
+    var backView = UIView()
     
-    var flagView: UIView!
-    var flagImageView: UIImageView!
-    var currencyLabelView: UIView!
-    var numberLabel: UILabel!
-    var currencyLabel: UILabel!
+    var flagView = UIView()
+    var flagImageView = UIImageView()
+    var currencyLabelView = UIView()
+    var numberLabel = UILabel()
+    var currencyLabel = UILabel()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureViews()
-        setupApperance()
-        
     }
     
     func configureViews() {
@@ -46,13 +45,13 @@ class CurrencyCell: UITableViewCell {
         //flagView
         flagView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(-32)
-            make.top.equalToSuperview().offset(3)
-            make.bottom.equalToSuperview().offset(3)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         //currencyLabelView
         currencyLabelView.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(30)
+            make.right.equalToSuperview().offset(-30)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
             make.leading.equalTo(flagView.snp.trailing)
@@ -74,6 +73,7 @@ class CurrencyCell: UITableViewCell {
         currencyLabelView.addSubview(currencyLabel)
         currencyLabelView.addSubview(numberLabel)
         
+        
         //currencyLabel
         currencyLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(-35)
@@ -85,8 +85,6 @@ class CurrencyCell: UITableViewCell {
         numberLabel.snp.makeConstraints { make in
             make.right.top.bottom.equalToSuperview()
         }
-        
-        
         
     }
     
@@ -103,6 +101,7 @@ class CurrencyCell: UITableViewCell {
         let radius = backView.frame.height / 2
         backView.layer.cornerRadius = radius
         currencyCellView.layer.cornerRadius = currencyCellView.frame.height / 2
+        
         setCircleLayer(for: flagImageView)
         setCircleLayer(for: flagView)
         separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
@@ -162,9 +161,18 @@ class CurrencyCell: UITableViewCell {
         }
     }
     
-    override internal func layoutSubviews() {
-        super.layoutSubviews()
-        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
+    override open var frame: CGRect {
+        get {
+            return super.frame
+        }
+        set (newFrame) {
+            var frame =  newFrame
+            frame.origin.y += 5
+            
+            frame.size.height -= 5
+            
+            super.frame = frame
+        }
     }
     
 }
