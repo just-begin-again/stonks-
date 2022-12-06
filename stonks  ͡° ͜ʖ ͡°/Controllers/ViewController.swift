@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     var firstCurr = UIButton()
     var secondCurr = UIButton()
     
+    var firstTextField = UITextField()
+    var secondTextField = UITextField()
+    
     var actions1: [UIAction] = []
     var actions2: [UIAction] = []
     
@@ -20,22 +23,10 @@ class ViewController: UIViewController {
     
     var netContr = NetworkController()
     
-    func setCircleLayer(for view: UIView) {
-            
-            let CircleLayer = CAShapeLayer()
-            let center = CGPoint (x: view.frame.size.width / 2, y: view.frame.size.height / 2)
-            let circleRadius = view.frame.size.height / 2
-            let circlePath = UIBezierPath(arcCenter: center, radius: circleRadius, startAngle: CGFloat(Double.pi), endAngle: CGFloat(Double.pi * 4), clockwise: true)
-            CircleLayer.path = circlePath.cgPath
-            view.layer.mask = CircleLayer
-            view.contentMode = .scaleAspectFill
-           
-        }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = C.colors.background
-        
+        view.addSubview(firstTextField)
         
         self.netContr.fetchJSON(urlStr: self.netContr.baseURL) { (result) in
             switch result {
@@ -44,15 +35,31 @@ class ViewController: UIViewController {
             }
         }
         
-        
-        
         configureButtons()
-
-        //        configureTableView()
+      //configureTableView()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.tableView.reloadData()
         }
+        
+        let anim = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+            self?.firstCurr.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: 20, bottom: (self?.view.frame.height)!/6, right: ((self?.view.frame.width)!/2)+20))
+            }
+            self?.firstTextField.frame.size = (self?.firstCurr.frame.size)!
+            self?.firstTextField.snp.makeConstraints({ make in
+                make.left.right.equalTo(self!.firstCurr)
+                make.top.equalTo(self!.firstCurr).offset(20)
+            })
+            
+                self?.view.layoutIfNeeded()
+        })
+        let anim2 = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+            self?.secondCurr.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: ((self?.view.frame.width)!/2)+20, bottom: (self?.view.frame.height)!/6, right: 20))
+            }
+                self?.view.layoutIfNeeded()
+        })
         
         for curr in netContr.currencies {
             let atrib = [NSAttributedString.Key.font: UIFont(name: "Courier New", size: 22)!]
@@ -61,14 +68,22 @@ class ViewController: UIViewController {
                 self.firstCurr.setAttributedTitle(NSAttributedString(string: action1.title, attributes: atrib), for: .normal)
                 self.firstCurr.setImage(action1.image, for: .normal)
                 self.firstCurr.configuration?.imagePlacement = .leading
-
+                
                 self.firstCurr.imageView?.snp.makeConstraints({ make in
                     make.height.width.equalTo(50)
                     make.centerY.equalToSuperview()
                     make.left.equalTo(20)
+                    
                 })
+                
+                self.firstCurr.snp.makeConstraints { make in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((self.view.frame.height-80)-(self.view.frame.height/8)), left: 20, bottom: self.view.frame.height/8, right: (self.view.frame.width/2)+20))
+                }
+                
                 self.firstCurr.setNeedsUpdateConfiguration()
+                anim.startAnimation()
             })
+                                   
             actions1.append(action1)
             
             let action2 = UIAction(title: curr.code.uppercased(), image: UIImage(named: curr.code.lowercased()), handler: { (action2) in
@@ -81,6 +96,7 @@ class ViewController: UIViewController {
                     make.right.equalTo(-20)
                 })
                 self.secondCurr.setNeedsUpdateConfiguration()
+                anim2.startAnimation()
             })
             actions2.append(action2)
         }
@@ -88,7 +104,7 @@ class ViewController: UIViewController {
         
         
         configureButtons()
-                
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -132,7 +148,7 @@ class ViewController: UIViewController {
         config.cornerStyle = .capsule
         config.buttonSize = .large
         config.attributedTitle?.font = UIFont(name: "Courier New", size: 22)
-//        config.showsActivityIndicator = true
+        //        config.showsActivityIndicator = true
         
         firstCurr.configuration = config
         secondCurr.configuration = config
