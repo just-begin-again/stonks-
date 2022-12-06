@@ -1,14 +1,14 @@
 //
-//  CurrencyCell.swift
+//  CurrencyCollectionCell.swift
 //  stonks͡° ͜ʖ ͡°
 //
-//  Created by Roman Sushkevich on 11/27/22.
+//  Created by Roman Sushkevich on 12/6/22.
 //
 
 import UIKit
 import SnapKit
 
-class CurrencyCell: UITableViewCell {
+class CurrencyCollectionCell: UICollectionViewCell {
     var currencyCellView = UIView()
     var backView = UIView()
     
@@ -19,9 +19,8 @@ class CurrencyCell: UITableViewCell {
     var currencyLabel = UILabel()
     
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         configureViews()
     }
     
@@ -104,7 +103,7 @@ class CurrencyCell: UITableViewCell {
         
         setCircleLayer(for: flagImageView)
         setCircleLayer(for: flagView)
-        separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
+//        separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
         
         currencyLabel.numberOfLines = 1
         currencyLabel.adjustsFontSizeToFitWidth = true
@@ -133,8 +132,8 @@ class CurrencyCell: UITableViewCell {
        
     }
     
-    override internal func setSelected(_ selected: Bool, animated: Bool) {
-        if (selected) {
+    func toggleSelected() {
+        if (isSelected) {
             numberLabel.textColor = C.text.color.accentText
             currencyLabel.textColor = C.text.color.accentText
             

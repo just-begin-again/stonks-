@@ -10,6 +10,7 @@ import UIKit
 struct C {
     
     static let cellIdentifier = "reusableCell"
+    static let collectionCellId = "reusableCollectionCell"
     
     struct net {
         static let urlStr = "https://www.cbr-xml-daily.ru/latest.js"
@@ -40,6 +41,7 @@ struct C {
         }
         
         struct color {
+            static var mainText = UIColor(hex: "CDD3E0")
             static var cuttedOutText = UIColor(hex: "F9F7F7")
             static var accentText = UIColor(hex: "173e6f")
             static var secondaryText = UIColor(hex: "3F72AF")

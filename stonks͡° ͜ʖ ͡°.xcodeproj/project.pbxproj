@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1406553F293F6A9700543F77 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1406553E293F6A9700543F77 /* CollectionViewController.swift */; };
+		14065541293F72CF00543F77 /* CurrencyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14065540293F72CF00543F77 /* CurrencyCollectionCell.swift */; };
 		14AECAE8293361A700220307 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECAE7293361A700220307 /* AppDelegate.swift */; };
 		14AECAEA293361A700220307 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECAE9293361A700220307 /* SceneDelegate.swift */; };
 		14AECAEC293361A700220307 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AECAEB293361A700220307 /* ViewController.swift */; };
@@ -26,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1406553E293F6A9700543F77 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		14065540293F72CF00543F77 /* CurrencyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCollectionCell.swift; sourceTree = "<group>"; };
 		14AECAE4293361A700220307 /* stonks͡° ͜ʖ ͡°.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "stonks͡° ͜ʖ ͡°.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14AECAE7293361A700220307 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14AECAE9293361A700220307 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 			children = (
 				14AECAEB293361A700220307 /* ViewController.swift */,
 				14AECB0029337DC300220307 /* NetworkController.swift */,
+				1406553E293F6A9700543F77 /* CollectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -121,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				14AECB0429339E1B00220307 /* CurrencyCell.swift */,
+				14065540293F72CF00543F77 /* CurrencyCollectionCell.swift */,
 				14AECAFE2933670C00220307 /* CurrenciesWithRates.swift */,
 				14AECB022933824A00220307 /* CurrencyModel.swift */,
 				14D00D812936099A003BF00E /* C.swift */,
@@ -279,7 +285,9 @@
 				14AECB0129337DC300220307 /* NetworkController.swift in Sources */,
 				14D00D9429366D09003BF00E /* Extensions.swift in Sources */,
 				14AECAEC293361A700220307 /* ViewController.swift in Sources */,
+				14065541293F72CF00543F77 /* CurrencyCollectionCell.swift in Sources */,
 				14AECB032933824A00220307 /* CurrencyModel.swift in Sources */,
+				1406553F293F6A9700543F77 /* CollectionViewController.swift in Sources */,
 				14AECAE8293361A700220307 /* AppDelegate.swift in Sources */,
 				14AECB0529339E1B00220307 /* CurrencyCell.swift in Sources */,
 				14D00D822936099A003BF00E /* C.swift in Sources */,
