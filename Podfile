@@ -7,5 +7,6 @@ target 'stonks͡° ͜ʖ ͡°' do
 
   # Pods for stonks͡° ͜ʖ ͡°
 pod 'SnapKit', '~> 5.6.0'
+pod 'IQKeyboardManager', '~>6.5'
 
 end
