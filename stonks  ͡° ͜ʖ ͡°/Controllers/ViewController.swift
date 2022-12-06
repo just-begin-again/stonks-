@@ -9,12 +9,12 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
-    
+    let atrib = [NSAttributedString.Key.font: UIFont(name: "Courier New", size: 22)!]
     var firstCurr = UIButton()
     var secondCurr = UIButton()
     
-    var firstTextField = UITextField()
-    var secondTextField = UITextField()
+    var firstTextField = UITextField(frame: CGRect(x: 80, y: UIScreen.main.bounds.height, width: 0, height: 0))
+    var secondTextField = UITextField(frame: CGRect(x: UIScreen.main.bounds.width-80, y: UIScreen.main.bounds.height, width: 0, height: 0))
     
     var actions1: [UIAction] = []
     var actions2: [UIAction] = []
@@ -27,6 +27,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = C.colors.background
         view.addSubview(firstTextField)
+        firstTextField.backgroundColor = C.colors.background
+        firstTextField.attributedPlaceholder = NSAttributedString(string: "amount", attributes: atrib)
+        firstTextField.font = UIFont(name: "Courier New", size: 22)
+        
         
         self.netContr.fetchJSON(urlStr: self.netContr.baseURL) { (result) in
             switch result {
@@ -36,36 +40,38 @@ class ViewController: UIViewController {
         }
         
         configureButtons()
-      //configureTableView()
+        //configureTableView()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.tableView.reloadData()
         }
         
-        let anim = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+        let anim = UIViewPropertyAnimator(duration: 0.25, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
             self?.firstCurr.snp.makeConstraints { make in
                 make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: 20, bottom: (self?.view.frame.height)!/6, right: ((self?.view.frame.width)!/2)+20))
             }
-            self?.firstTextField.frame.size = (self?.firstCurr.frame.size)!
+            
             self?.firstTextField.snp.makeConstraints({ make in
-                make.left.right.equalTo(self!.firstCurr)
-                make.top.equalTo(self!.firstCurr).offset(20)
+                make.width.equalTo(self!.firstCurr)
+                make.centerX.equalTo(self!.firstCurr)
+                make.top.equalTo(self!.firstCurr.snp.bottom).offset(10)
+                make.height.equalTo(self!.firstCurr.frame.height/2)
             })
             
-                self?.view.layoutIfNeeded()
+            self?.view.layoutIfNeeded()
         })
+        
         let anim2 = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
             self?.secondCurr.snp.makeConstraints { make in
                 make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: ((self?.view.frame.width)!/2)+20, bottom: (self?.view.frame.height)!/6, right: 20))
             }
-                self?.view.layoutIfNeeded()
+            self?.view.layoutIfNeeded()
         })
         
         for curr in netContr.currencies {
-            let atrib = [NSAttributedString.Key.font: UIFont(name: "Courier New", size: 22)!]
             
             let action1 = UIAction(title: curr.code.uppercased(), image: UIImage(named: curr.code.lowercased()), handler: { (action1) in
-                self.firstCurr.setAttributedTitle(NSAttributedString(string: action1.title, attributes: atrib), for: .normal)
+                self.firstCurr.setAttributedTitle(NSAttributedString(string: action1.title, attributes: self.atrib), for: .normal)
                 self.firstCurr.setImage(action1.image, for: .normal)
                 self.firstCurr.configuration?.imagePlacement = .leading
                 
@@ -83,11 +89,11 @@ class ViewController: UIViewController {
                 self.firstCurr.setNeedsUpdateConfiguration()
                 anim.startAnimation()
             })
-                                   
+            
             actions1.append(action1)
             
             let action2 = UIAction(title: curr.code.uppercased(), image: UIImage(named: curr.code.lowercased()), handler: { (action2) in
-                self.secondCurr.setAttributedTitle(NSAttributedString(string: action2.title, attributes: atrib), for: .normal)
+                self.secondCurr.setAttributedTitle(NSAttributedString(string: action2.title, attributes: self.atrib), for: .normal)
                 self.secondCurr.setImage(action2.image, for: .normal)
                 self.secondCurr.configuration?.imagePlacement = .trailing
                 self.secondCurr.imageView?.snp.makeConstraints({ make in
@@ -187,13 +193,6 @@ class ViewController: UIViewController {
     
 }
 
-//MARK: - PassDataDelegate
-extension ViewController: PassDataDelegate {
-    func passData(_ data: String) {
-        //        titleLabel.text = "Your hobby is \(data)!"
-    }
-}
-
 //MARK: - UIPopoverPresentationControllerDelegate
 extension ViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -231,4 +230,16 @@ extension ViewController: UITableViewDelegate {
     
 }
 
-
+extension ViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if let typedText = textField.text {       // What have we typed in?
+            var dotCount = 0
+            for c in typedText {  // count dot or comma
+                if String(c) == "." || String(c) == "," {  dotCount += 1  }
+            }
+            if dotCount >= 2 {    // remove last typed
+                textField.text = String(typedText.dropLast())
+            }
+        }
+    }
+}

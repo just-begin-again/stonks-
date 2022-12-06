@@ -58,3 +58,9 @@ extension UIView {
     }
 }
 
+//MARK: - PassDataDelegate
+extension ViewController: PassDataDelegate {
+    func passData(_ data: String) {
+        //        titleLabel.text = "Your hobby is \(data)!"
+    }
+}
