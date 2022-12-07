@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var secondCurr = UIButton()
     
     var firstTextField = UITextField(frame: CGRect(x: 80, y: UIScreen.main.bounds.height, width: 0, height: 0))
-    var secondTextField = UITextField(frame: CGRect(x: UIScreen.main.bounds.width-80, y: UIScreen.main.bounds.height, width: 0, height: 0))
+    var resultButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width-80, y: UIScreen.main.bounds.height, width: 0, height: 0))
     
     var actions1: [UIAction] = []
     var actions2: [UIAction] = []
@@ -26,11 +26,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = C.colors.background
-        view.addSubview(firstTextField)
-        firstTextField.backgroundColor = C.colors.background
-        firstTextField.attributedPlaceholder = NSAttributedString(string: "amount", attributes: atrib)
-        firstTextField.font = UIFont(name: "Courier New", size: 22)
         
+        configureTextField()
         
         self.netContr.fetchJSON(urlStr: self.netContr.baseURL) { (result) in
             switch result {
@@ -67,6 +64,24 @@ class ViewController: UIViewController {
             }
             self?.view.layoutIfNeeded()
         })
+        
+        let anim3 = UIViewPropertyAnimator(duration: 0.25, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+            self?.resultButton.snp.makeConstraints { make in
+                self?.view.addSubview(self!.resultButton)
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: 20, bottom: (self?.view.frame.height)!/6, right: ((self?.view.frame.width)!/2)+20))
+            }
+            
+            self?.resultButton.snp.makeConstraints({ make in
+                make.width.equalTo(self!.secondCurr)
+                make.centerX.equalTo(self!.secondCurr)
+                make.top.equalTo(self!.secondCurr.snp.bottom).offset(10)
+                make.height.equalTo(self!.secondCurr.frame.height/2)
+            })
+            
+            self?.view.layoutIfNeeded()
+        })
+        
+        
         
         for curr in netContr.currencies {
             
@@ -107,32 +122,47 @@ class ViewController: UIViewController {
             actions2.append(action2)
         }
         
-        
-        
         configureButtons()
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showPopOver" {
-            if let view = segue.destination as? CollectionViewController {
-                view.popoverPresentationController?.delegate = self
-                view.preferredContentSize = CGSize(width: 160, height: 100)
-                view.delegate = self
+    @objc func convert() {
+        if firstTextField.text != nil && firstTextField.text != "" {
+            self.resultButton.setAttributedTitle(NSAttributedString(string: firstTextField.text!, attributes: self.atrib), for: .normal)
+            
+            self.resultButton.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((self.view.frame.height-80)-(self.view.frame.height/8)), left: 20, bottom: self.view.frame.height/8, right: (self.view.frame.width/2)+20))
             }
+            
+            self.resultButton.setNeedsUpdateConfiguration()
+            self.resultButton.isHidden = false
         }
     }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showPopOver" {
+//            if let view = segue.destination as? CollectionViewController {
+//                view.popoverPresentationController?.delegate = self
+//                view.preferredContentSize = CGSize(width: 160, height: 100)
+//                view.delegate = self
+//            }
+//        }
+//    }
     
     func configureButtons() {
         
         view.addSubview(firstCurr)
         view.addSubview(secondCurr)
+        view.addSubview(resultButton)
         
         firstCurr.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: 20, bottom: view.frame.height/12, right: (view.frame.width/2)+20))
         }
         
         secondCurr.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
+        }
+        
+        resultButton.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
         }
         
@@ -176,6 +206,24 @@ class ViewController: UIViewController {
         secondCurr.configuration?.image = UIImage(systemName: "hand.tap.fill")
         
         
+        var resultConfig = UIButton.Configuration.filled()
+        resultConfig.title = "result"
+        resultConfig.titlePadding = 10
+        
+        
+        resultConfig.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 4, bottom: 2, trailing: 4)
+        
+        resultConfig.baseForegroundColor = C.colors.background
+        resultConfig.baseBackgroundColor = C.text.color.mainText
+        
+        
+        resultConfig.cornerStyle = .capsule
+        resultConfig.buttonSize = .large
+        resultConfig.attributedTitle?.font = UIFont(name: "Courier New Bold", size: 22)
+        resultButton.configuration = resultConfig
+        resultButton.isHidden = true
+        
+        
     }
     
     func configureTableView() {
@@ -188,6 +236,30 @@ class ViewController: UIViewController {
             make.edges.equalTo(view).inset(UIEdgeInsets(top: view.frame.height/3, left: 0, bottom: 0, right: 0))
         }
         tableView.register(CurrencyCell.self, forCellReuseIdentifier: C.cellIdentifier)
+        
+    }
+    
+    
+
+    
+    func configureTextField() {
+        view.addSubview(firstTextField)
+        
+        firstTextField.delegate = self
+        firstTextField.keyboardType = .decimalPad
+        firstTextField.textColor = C.colors.cellsMain
+        
+        firstTextField.backgroundColor = C.colors.background
+        firstTextField.attributedPlaceholder = NSAttributedString(string: "amount", attributes: atrib)
+        firstTextField.font = UIFont(name: "Courier New Bold", size: 22)
+        
+        let toolBar = UIToolbar()
+             toolBar.sizeToFit()
+             let button = UIBarButtonItem(title: "Convert", style: .plain, target: self,
+                                              action: #selector(convert))
+             toolBar.setItems([button], animated: true)
+             toolBar.isUserInteractionEnabled = true
+             firstTextField.inputAccessoryView = toolBar
         
     }
     
@@ -230,7 +302,23 @@ extension ViewController: UITableViewDelegate {
     
 }
 
+
+//MARK: - UITextFieldDelegate
 extension ViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        convert()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == firstTextField {
+                let allowedCharacters = CharacterSet(charactersIn:"0123456789.")//Here change this characters based on your requirement
+                let characterSet = CharacterSet(charactersIn: string)
+                return allowedCharacters.isSuperset(of: characterSet)
+            }
+        return true
+    }
+    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if let typedText = textField.text {       // What have we typed in?
             var dotCount = 0
