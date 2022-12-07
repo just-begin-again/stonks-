@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var secondCurr = UIButton()
     
     var firstTextField = UITextField(frame: CGRect(x: 80, y: UIScreen.main.bounds.height, width: 0, height: 0))
-    var resultButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width-80, y: UIScreen.main.bounds.height, width: 0, height: 0))
+    var resultButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
     var actions1: [UIAction] = []
     var actions2: [UIAction] = []
@@ -65,23 +65,6 @@ class ViewController: UIViewController {
             self?.view.layoutIfNeeded()
         })
         
-        let anim3 = UIViewPropertyAnimator(duration: 0.25, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
-            self?.resultButton.snp.makeConstraints { make in
-                self?.view.addSubview(self!.resultButton)
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: 20, bottom: (self?.view.frame.height)!/6, right: ((self?.view.frame.width)!/2)+20))
-            }
-            
-            self?.resultButton.snp.makeConstraints({ make in
-                make.width.equalTo(self!.secondCurr)
-                make.centerX.equalTo(self!.secondCurr)
-                make.top.equalTo(self!.secondCurr.snp.bottom).offset(10)
-                make.height.equalTo(self!.secondCurr.frame.height/2)
-            })
-            
-            self?.view.layoutIfNeeded()
-        })
-        
-        
         
         for curr in netContr.currencies {
             
@@ -128,14 +111,23 @@ class ViewController: UIViewController {
     
     @objc func convert() {
         if firstTextField.text != nil && firstTextField.text != "" {
+            
+            let anim3 = UIViewPropertyAnimator(duration: 0.25, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+                self?.resultButton.snp.makeConstraints { make in
+                    self?.view.addSubview(self!.resultButton)
+                    self!.resultButton.isHidden = false
+                    self!.resultButton.layer.opacity = 1.0
+                    make.centerY.equalTo(self!.firstTextField.snp.centerY)
+                }
+                
+                self?.view.layoutIfNeeded()
+            })
+            
             self.resultButton.setAttributedTitle(NSAttributedString(string: firstTextField.text!, attributes: self.atrib), for: .normal)
             
-            self.resultButton.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((self.view.frame.height-80)-(self.view.frame.height/8)), left: 20, bottom: self.view.frame.height/8, right: (self.view.frame.width/2)+20))
-            }
-            
             self.resultButton.setNeedsUpdateConfiguration()
-            self.resultButton.isHidden = false
+            
+            anim3.startAnimation()
         }
     }
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -163,7 +155,8 @@ class ViewController: UIViewController {
         }
         
         resultButton.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/24)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
+            
         }
         
         
@@ -222,6 +215,7 @@ class ViewController: UIViewController {
         resultConfig.attributedTitle?.font = UIFont(name: "Courier New Bold", size: 22)
         resultButton.configuration = resultConfig
         resultButton.isHidden = true
+        resultButton.layer.opacity = 0
         
         
     }
