@@ -10,11 +10,14 @@ import SnapKit
 
 class ViewController: UIViewController {
     let atrib = [NSAttributedString.Key.font: UIFont(name: "Courier New", size: 22)!]
+    let atribBold = [NSAttributedString.Key.font: UIFont(name: "Courier New Bold", size: 22)!]
+    
     var firstCurr = UIButton()
     var secondCurr = UIButton()
     
     var firstTextField = UITextField(frame: CGRect(x: 80, y: UIScreen.main.bounds.height, width: 0, height: 0))
     var resultButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    var swapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
     var actions1: [UIAction] = []
     var actions2: [UIAction] = []
@@ -62,7 +65,7 @@ class ViewController: UIViewController {
             let secondToFirstRate =  netContr.currenciesDict[secondCurr.titleLabel!.text!]! / netContr.currenciesDict[firstCurr.titleLabel!.text!]!
             let amount = Double(firstTextField.text!)!
             
-            self.resultButton.setAttributedTitle(NSAttributedString(string: (amount * secondToFirstRate).formattedWithSeparator, attributes: self.atrib), for: .normal)
+            self.resultButton.setAttributedTitle(NSAttributedString(string: (amount * secondToFirstRate).formattedWithSeparator, attributes: self.atribBold), for: .normal)
             
             
             self.resultButton.titleLabel?.numberOfLines = 1
@@ -84,6 +87,7 @@ class ViewController: UIViewController {
         view.addSubview(firstCurr)
         view.addSubview(secondCurr)
         view.addSubview(resultButton)
+        view.addSubview(swapButton)
         
         firstCurr.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: 20, bottom: view.frame.height/12, right: (view.frame.width/2)+20))
@@ -174,14 +178,15 @@ class ViewController: UIViewController {
     
     func configureTextField() {
         view.addSubview(firstTextField)
+        firstTextField.layer.opacity = 0
         
         firstTextField.delegate = self
         firstTextField.keyboardType = .decimalPad
         firstTextField.textColor = C.colors.cellsMain
         
         firstTextField.backgroundColor = C.colors.background
-        firstTextField.attributedPlaceholder = NSAttributedString(string: "amount", attributes: atrib)
-        firstTextField.font = UIFont(name: "Courier New Bold", size: 22)
+        firstTextField.attributedPlaceholder = NSAttributedString(string: "enter amount", attributes: atrib)
+        firstTextField.font = UIFont(name: "Courier New Bold", size: 18)
         
         let toolBar = UIToolbar()
              toolBar.sizeToFit()
@@ -195,17 +200,11 @@ class ViewController: UIViewController {
     
     func configureNestedMenusAndAnimation() {
         
-        let anim = UIViewPropertyAnimator(duration: 0.25, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+        let anim = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
             self?.firstCurr.snp.makeConstraints { make in
                 make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: 20, bottom: (self?.view.frame.height)!/6, right: ((self?.view.frame.width)!/2)+20))
             }
             
-            self?.firstTextField.snp.makeConstraints({ make in
-                make.width.equalTo(self!.firstCurr)
-                make.centerX.equalTo(self!.firstCurr)
-                make.top.equalTo(self!.firstCurr.snp.bottom).offset(10)
-                make.height.equalTo(self!.firstCurr.frame.height/2)
-            })
             
             self?.view.layoutIfNeeded()
         })
@@ -217,6 +216,20 @@ class ViewController: UIViewController {
             self?.view.layoutIfNeeded()
         })
         
+        let animTextField = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+            
+            self?.firstTextField.layer.opacity = 1
+            
+            
+            self?.firstTextField.snp.makeConstraints({ make in
+                make.width.equalTo(self!.firstCurr)
+                make.centerX.equalTo(self!.firstCurr)
+                make.top.equalTo(self!.firstCurr.snp.bottom).offset(10)
+                make.height.equalTo(self!.firstCurr.frame.height/2)
+            })
+            
+            self?.view.layoutIfNeeded()
+        })
         
         for curr in netContr.currencies {
             
@@ -238,6 +251,9 @@ class ViewController: UIViewController {
                 
                 self.firstCurr.setNeedsUpdateConfiguration()
                 anim.startAnimation()
+                if self.firstCurr.titleLabel?.text != "1" && self.secondCurr.titleLabel?.text != "2" {
+                    animTextField.startAnimation()
+                }
             })
             
             actions1.append(action1)
@@ -253,6 +269,9 @@ class ViewController: UIViewController {
                 })
                 self.secondCurr.setNeedsUpdateConfiguration()
                 anim2.startAnimation()
+                if self.firstCurr.titleLabel?.text != "1" && self.secondCurr.titleLabel?.text != "2" {
+                    animTextField.startAnimation()
+                }
             })
             actions2.append(action2)
         }
@@ -302,6 +321,7 @@ extension ViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         convert()
+        firstTextField.font = UIFont(name: "Courier New Bold", size: 22)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
