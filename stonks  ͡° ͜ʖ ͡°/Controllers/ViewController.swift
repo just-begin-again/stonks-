@@ -60,7 +60,7 @@ class ViewController: UIViewController {
     @objc func convert() {
         if firstTextField.text != nil && firstTextField.text != "" {
             
-            let anim3 = UIViewPropertyAnimator(duration: 0.25, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+            let animResultButton = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
                 self?.resultButton.snp.makeConstraints { make in
                     self?.view.addSubview(self!.resultButton)
                     self!.resultButton.isHidden = false
@@ -79,15 +79,15 @@ class ViewController: UIViewController {
             
             self.resultButton.titleLabel?.numberOfLines = 1
             if (resultButton.titleLabel?.text!.count)! > 10 {
-               
-//                resultButton.configuration?.attributedTitle?.font = UIFont(name: "Courier New Bold", size: 14)
+                
+                //                resultButton.configuration?.attributedTitle?.font = UIFont(name: "Courier New Bold", size: 14)
                 resultButton.titleLabel?.adjustsFontSizeToFitWidth = true
                 resultButton.titleLabel?.minimumScaleFactor = 0.2
             }
             
             firstTextField.resignFirstResponder()
             
-            anim3.startAnimation()
+            animResultButton.startAnimation()
         }
     }
     
@@ -131,6 +131,7 @@ class ViewController: UIViewController {
         swapButton.configuration = swapConfig
         swapButton.isHidden = true
         swapButton.layer.opacity = 0
+        swapButton.addTarget(self, action: #selector(self.swapPressed), for: .touchUpInside)
         
         
         var config = UIButton.Configuration.filled()
@@ -220,12 +221,12 @@ class ViewController: UIViewController {
         firstTextField.font = UIFont(name: "Courier New Bold", size: 18)
         
         let toolBar = UIToolbar()
-             toolBar.sizeToFit()
-             let button = UIBarButtonItem(title: "Convert", style: .plain, target: self,
-                                              action: #selector(convert))
-             toolBar.setItems([button], animated: true)
-             toolBar.isUserInteractionEnabled = true
-             firstTextField.inputAccessoryView = toolBar
+        toolBar.sizeToFit()
+        let button = UIBarButtonItem(title: "Convert", style: .plain, target: self,
+                                     action: #selector(convert))
+        toolBar.setItems([button], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        firstTextField.inputAccessoryView = toolBar
         
     }
     
@@ -318,6 +319,65 @@ class ViewController: UIViewController {
             actions2.append(action2)
         }
     }
+    
+   
+    
+    @objc func swapPressed() {
+        
+        //не пойму почему если снова обращаемся к непрозрачности и ставим хоть какое-то значение, то анимация скипается
+        //устал, судя по всему, позже посижу с дебагом
+//        func fadeOut(view : UIView, delay: TimeInterval) {
+//
+//            let animationDuration = 0.3
+//
+//            UIView.animate(withDuration: animationDuration, delay: delay, options: [UIView.AnimationOptions.beginFromCurrentState], animations: {
+//
+//                view.alpha = 0
+//
+//            }, completion: nil)
+//
+//        }
+//
+//        func fadeIn(view : UIView, delay: TimeInterval) {
+//
+//            let animationDuration = 0.6
+//
+//            UIView.animate(withDuration: animationDuration, delay: delay, options: [UIView.AnimationOptions.beginFromCurrentState], animations: {
+//
+//                view.alpha = 1
+//
+//            }, completion: nil)
+//
+//        }
+//
+//
+//        fadeOut(view: firstCurr, delay: 0)
+//        fadeOut(view: secondCurr, delay: 0)
+//
+        let tempCurrTitle = self.firstCurr.currentAttributedTitle
+        let tempCurrImageName = self.firstCurr.currentImage
+        
+        self.firstCurr.setAttributedTitle(self.secondCurr.currentAttributedTitle, for: .normal)
+        self.firstCurr.setImage(self.secondCurr.currentImage, for: .normal)
+
+        self.secondCurr.setAttributedTitle(tempCurrTitle, for: .normal)
+        self.secondCurr.setImage(tempCurrImageName, for: .normal)
+        
+//        fadeIn(view: firstCurr, delay: 0.3)
+//        fadeIn(view: secondCurr, delay: 3)
+
+        firstTextField.text = nil
+        firstTextField.attributedPlaceholder = NSAttributedString(string: "enter amount", attributes: atrib)
+        firstTextField.font = UIFont(name: "Courier New Bold", size: 18)
+
+        let animFadeResultButton = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+            self!.resultButton.layer.opacity = 0
+            self?.view.layoutIfNeeded()
+        })
+
+        animFadeResultButton.startAnimation()
+        
+    }
 }
 
 //MARK: - UIPopoverPresentationControllerDelegate
@@ -368,10 +428,10 @@ extension ViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == firstTextField {
-                let allowedCharacters = CharacterSet(charactersIn:"0123456789.")//Here change this characters based on your requirement
-                let characterSet = CharacterSet(charactersIn: string)
-                return allowedCharacters.isSuperset(of: characterSet)
-            }
+            let allowedCharacters = CharacterSet(charactersIn:"0123456789.")//Here change this characters based on your requirement
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        }
         return true
     }
     
