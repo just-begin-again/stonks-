@@ -40,12 +40,21 @@ class ViewController: UIViewController {
         configureTextField()
         configureButtons()
         //configureTableView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.tableView.reloadData()
-        }
         configureNestedMenusAndAnimation()
         configureButtons()
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.tableView.reloadData()
+        }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc func convert() {
@@ -101,6 +110,27 @@ class ViewController: UIViewController {
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/24)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
             
         }
+        
+        swapButton.snp.makeConstraints { make in
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+            make.centerX.equalToSuperview()
+            make.centerY.equalTo(secondCurr.snp.top).offset(-10)
+        }
+        
+        
+        var swapConfig = UIButton.Configuration.filled()
+        swapConfig.image = UIImage(systemName: "arrow.left.arrow.right")
+        swapConfig.imagePlacement = .bottom
+        swapConfig.baseBackgroundColor = .clear
+        swapConfig.baseForegroundColor = C.colors.cellsMain
+        swapButton.imageView?.snp.makeConstraints({ make in
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+        })
+        swapButton.configuration = swapConfig
+        swapButton.isHidden = true
+        swapButton.layer.opacity = 0
         
         
         var config = UIButton.Configuration.filled()
@@ -159,6 +189,7 @@ class ViewController: UIViewController {
         resultButton.configuration = resultConfig
         resultButton.isHidden = true
         resultButton.layer.opacity = 0
+        resultButton.isUserInteractionEnabled = false
         
         
     }
@@ -231,6 +262,15 @@ class ViewController: UIViewController {
             self?.view.layoutIfNeeded()
         })
         
+        let animSwapButton = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+            
+            self?.swapButton.layer.opacity = 1
+            self?.swapButton.isHidden = false
+            
+            
+            self?.view.layoutIfNeeded()
+        })
+        
         for curr in netContr.currencies {
             
             let action1 = UIAction(title: curr.code.uppercased(), image: UIImage(named: curr.code.lowercased()), handler: { (action1) in
@@ -253,6 +293,7 @@ class ViewController: UIViewController {
                 anim.startAnimation()
                 if self.firstCurr.titleLabel?.text != "1" && self.secondCurr.titleLabel?.text != "2" {
                     animTextField.startAnimation()
+                    animSwapButton.startAnimation()
                 }
             })
             
@@ -271,6 +312,7 @@ class ViewController: UIViewController {
                 anim2.startAnimation()
                 if self.firstCurr.titleLabel?.text != "1" && self.secondCurr.titleLabel?.text != "2" {
                     animTextField.startAnimation()
+                    animSwapButton.startAnimation()
                 }
             })
             actions2.append(action2)
