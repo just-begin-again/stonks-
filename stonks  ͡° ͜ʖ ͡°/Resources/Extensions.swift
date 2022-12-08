@@ -64,3 +64,19 @@ extension ViewController: PassDataDelegate {
         //        titleLabel.text = "Your hobby is \(data)!"
     }
 }
+
+//MARK: - NumFormatter
+extension Formatter {
+    static let withSeparator: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = " "
+        formatter.maximumFractionDigits = 2
+        formatter.roundingMode = .halfUp
+        return formatter
+    }()
+}
+
+extension Numeric {
+    var formattedWithSeparator: String { Formatter.withSeparator.string(for: self) ?? "" }
+}

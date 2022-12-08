@@ -27,8 +27,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = C.colors.background
         
-        configureTextField()
-        
         self.netContr.fetchJSON(urlStr: self.netContr.baseURL) { (result) in
             switch result {
             case .success(let data): self.netContr.parse(JSON: data)
@@ -36,75 +34,13 @@ class ViewController: UIViewController {
             }
         }
         
+        configureTextField()
         configureButtons()
         //configureTableView()
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.tableView.reloadData()
         }
-        
-        let anim = UIViewPropertyAnimator(duration: 0.25, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
-            self?.firstCurr.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: 20, bottom: (self?.view.frame.height)!/6, right: ((self?.view.frame.width)!/2)+20))
-            }
-            
-            self?.firstTextField.snp.makeConstraints({ make in
-                make.width.equalTo(self!.firstCurr)
-                make.centerX.equalTo(self!.firstCurr)
-                make.top.equalTo(self!.firstCurr.snp.bottom).offset(10)
-                make.height.equalTo(self!.firstCurr.frame.height/2)
-            })
-            
-            self?.view.layoutIfNeeded()
-        })
-        
-        let anim2 = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
-            self?.secondCurr.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: ((self?.view.frame.width)!/2)+20, bottom: (self?.view.frame.height)!/6, right: 20))
-            }
-            self?.view.layoutIfNeeded()
-        })
-        
-        
-        for curr in netContr.currencies {
-            
-            let action1 = UIAction(title: curr.code.uppercased(), image: UIImage(named: curr.code.lowercased()), handler: { (action1) in
-                self.firstCurr.setAttributedTitle(NSAttributedString(string: action1.title, attributes: self.atrib), for: .normal)
-                self.firstCurr.setImage(action1.image, for: .normal)
-                self.firstCurr.configuration?.imagePlacement = .leading
-                
-                self.firstCurr.imageView?.snp.makeConstraints({ make in
-                    make.height.width.equalTo(50)
-                    make.centerY.equalToSuperview()
-                    make.left.equalTo(20)
-                    
-                })
-                
-                self.firstCurr.snp.makeConstraints { make in
-                    make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((self.view.frame.height-80)-(self.view.frame.height/8)), left: 20, bottom: self.view.frame.height/8, right: (self.view.frame.width/2)+20))
-                }
-                
-                self.firstCurr.setNeedsUpdateConfiguration()
-                anim.startAnimation()
-            })
-            
-            actions1.append(action1)
-            
-            let action2 = UIAction(title: curr.code.uppercased(), image: UIImage(named: curr.code.lowercased()), handler: { (action2) in
-                self.secondCurr.setAttributedTitle(NSAttributedString(string: action2.title, attributes: self.atrib), for: .normal)
-                self.secondCurr.setImage(action2.image, for: .normal)
-                self.secondCurr.configuration?.imagePlacement = .trailing
-                self.secondCurr.imageView?.snp.makeConstraints({ make in
-                    make.height.width.equalTo(50)
-                    make.centerY.equalToSuperview()
-                    make.right.equalTo(-20)
-                })
-                self.secondCurr.setNeedsUpdateConfiguration()
-                anim2.startAnimation()
-            })
-            actions2.append(action2)
-        }
-        
+        configureNestedMenusAndAnimation()
         configureButtons()
         
     }
@@ -123,22 +59,25 @@ class ViewController: UIViewController {
                 self?.view.layoutIfNeeded()
             })
             
-            self.resultButton.setAttributedTitle(NSAttributedString(string: firstTextField.text!, attributes: self.atrib), for: .normal)
+            let secondToFirstRate =  netContr.currenciesDict[secondCurr.titleLabel!.text!]! / netContr.currenciesDict[firstCurr.titleLabel!.text!]!
+            let amount = Double(firstTextField.text!)!
             
-            self.resultButton.setNeedsUpdateConfiguration()
+            self.resultButton.setAttributedTitle(NSAttributedString(string: (amount * secondToFirstRate).formattedWithSeparator, attributes: self.atrib), for: .normal)
+            
+            
+            self.resultButton.titleLabel?.numberOfLines = 1
+            if (resultButton.titleLabel?.text!.count)! > 10 {
+               
+//                resultButton.configuration?.attributedTitle?.font = UIFont(name: "Courier New Bold", size: 14)
+                resultButton.titleLabel?.adjustsFontSizeToFitWidth = true
+                resultButton.titleLabel?.minimumScaleFactor = 0.2
+            }
+            
+            firstTextField.resignFirstResponder()
             
             anim3.startAnimation()
         }
     }
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showPopOver" {
-//            if let view = segue.destination as? CollectionViewController {
-//                view.popoverPresentationController?.delegate = self
-//                view.preferredContentSize = CGSize(width: 160, height: 100)
-//                view.delegate = self
-//            }
-//        }
-//    }
     
     func configureButtons() {
         
@@ -233,9 +172,6 @@ class ViewController: UIViewController {
         
     }
     
-    
-
-    
     func configureTextField() {
         view.addSubview(firstTextField)
         
@@ -257,6 +193,70 @@ class ViewController: UIViewController {
         
     }
     
+    func configureNestedMenusAndAnimation() {
+        
+        let anim = UIViewPropertyAnimator(duration: 0.25, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+            self?.firstCurr.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: 20, bottom: (self?.view.frame.height)!/6, right: ((self?.view.frame.width)!/2)+20))
+            }
+            
+            self?.firstTextField.snp.makeConstraints({ make in
+                make.width.equalTo(self!.firstCurr)
+                make.centerX.equalTo(self!.firstCurr)
+                make.top.equalTo(self!.firstCurr.snp.bottom).offset(10)
+                make.height.equalTo(self!.firstCurr.frame.height/2)
+            })
+            
+            self?.view.layoutIfNeeded()
+        })
+        
+        let anim2 = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+            self?.secondCurr.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: (((self?.view.frame.height)!-80)-((self?.view.frame.height)!/6)), left: ((self?.view.frame.width)!/2)+20, bottom: (self?.view.frame.height)!/6, right: 20))
+            }
+            self?.view.layoutIfNeeded()
+        })
+        
+        
+        for curr in netContr.currencies {
+            
+            let action1 = UIAction(title: curr.code.uppercased(), image: UIImage(named: curr.code.lowercased()), handler: { (action1) in
+                self.firstCurr.setAttributedTitle(NSAttributedString(string: action1.title, attributes: self.atrib), for: .normal)
+                self.firstCurr.setImage(action1.image, for: .normal)
+                self.firstCurr.configuration?.imagePlacement = .leading
+                
+                self.firstCurr.imageView?.snp.makeConstraints({ make in
+                    make.height.width.equalTo(50)
+                    make.centerY.equalToSuperview()
+                    make.left.equalTo(20)
+                    
+                })
+                
+                self.firstCurr.snp.makeConstraints { make in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((self.view.frame.height-80)-(self.view.frame.height/8)), left: 20, bottom: self.view.frame.height/8, right: (self.view.frame.width/2)+20))
+                }
+                
+                self.firstCurr.setNeedsUpdateConfiguration()
+                anim.startAnimation()
+            })
+            
+            actions1.append(action1)
+            
+            let action2 = UIAction(title: curr.code.uppercased(), image: UIImage(named: curr.code.lowercased()), handler: { (action2) in
+                self.secondCurr.setAttributedTitle(NSAttributedString(string: action2.title, attributes: self.atrib), for: .normal)
+                self.secondCurr.setImage(action2.image, for: .normal)
+                self.secondCurr.configuration?.imagePlacement = .trailing
+                self.secondCurr.imageView?.snp.makeConstraints({ make in
+                    make.height.width.equalTo(50)
+                    make.centerY.equalToSuperview()
+                    make.right.equalTo(-20)
+                })
+                self.secondCurr.setNeedsUpdateConfiguration()
+                anim2.startAnimation()
+            })
+            actions2.append(action2)
+        }
+    }
 }
 
 //MARK: - UIPopoverPresentationControllerDelegate
@@ -325,3 +325,14 @@ extension ViewController: UITextFieldDelegate {
         }
     }
 }
+
+
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showPopOver" {
+//            if let view = segue.destination as? CollectionViewController {
+//                view.popoverPresentationController?.delegate = self
+//                view.preferredContentSize = CGSize(width: 160, height: 100)
+//                view.delegate = self
+//            }
+//        }
+//    }
