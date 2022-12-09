@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     var firstTextField = UITextField(frame: CGRect(x: 80, y: UIScreen.main.bounds.height, width: 0, height: 0))
     var resultButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    var expandCurrButt = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var swapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
     var actions1: [UIAction] = []
@@ -71,6 +72,17 @@ class ViewController: UIViewController {
                 self?.view.layoutIfNeeded()
             })
             
+            let animExpandButton = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
+                self?.expandCurrButt.snp.makeConstraints { make in
+                    self?.view.addSubview(self!.expandCurrButt)
+                    self!.expandCurrButt.isHidden = false
+                    self!.expandCurrButt.layer.opacity = 1.0
+                    make.centerX.equalToSuperview()
+                }
+                
+                self?.view.layoutIfNeeded()
+            })
+            
             let secondToFirstRate =  netContr.currenciesDict[secondCurr.titleLabel!.text!]! / netContr.currenciesDict[firstCurr.titleLabel!.text!]!
             let amount = Double(firstTextField.text!)!
             
@@ -88,6 +100,7 @@ class ViewController: UIViewController {
             firstTextField.resignFirstResponder()
             
             animResultButton.startAnimation()
+            animExpandButton.startAnimation()
         }
     }
     
@@ -97,6 +110,7 @@ class ViewController: UIViewController {
         view.addSubview(secondCurr)
         view.addSubview(resultButton)
         view.addSubview(swapButton)
+        view.addSubview(expandCurrButt)
         
         firstCurr.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: 20, bottom: view.frame.height/12, right: (view.frame.width/2)+20))
@@ -118,6 +132,10 @@ class ViewController: UIViewController {
             make.centerY.equalTo(secondCurr.snp.top).offset(-10)
         }
         
+        expandCurrButt.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height+20)-(view.frame.height/12)), left: 20, bottom: view.frame.height/48, right: 20))
+            
+        }
         
         var swapConfig = UIButton.Configuration.filled()
         swapConfig.image = UIImage(systemName: "arrow.left.arrow.right")
@@ -192,6 +210,12 @@ class ViewController: UIViewController {
         resultButton.layer.opacity = 0
         resultButton.isUserInteractionEnabled = false
         
+        expandCurrButt.configuration = resultConfig
+        expandCurrButt.configuration?.title = "show the rest"
+        expandCurrButt.configuration?.attributedTitle?.font = UIFont(name: "Courier New Bold", size: 16)
+        expandCurrButt.isHidden = true
+        expandCurrButt.layer.opacity = 0
+        expandCurrButt.addTarget(self, action: #selector(self.expandPressed), for: .touchUpInside)
         
     }
     
@@ -376,6 +400,10 @@ class ViewController: UIViewController {
         })
 
         animFadeResultButton.startAnimation()
+        
+    }
+    @objc func expandPressed() {
+        
         
     }
 }
