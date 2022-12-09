@@ -407,30 +407,65 @@ class ViewController: UIViewController {
         
         configureTableView()
         
-        firstCurr.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+40, left: 20, bottom: (view.frame.height/3)+(view.safeAreaInsets.top+334), right: (view.frame.width/2)+20))
-        }
-        
-        secondCurr.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+40, left: (view.frame.width/2)+20, bottom: (view.frame.height/3)+(view.safeAreaInsets.top+334), right: 20))
-        }
-        
-        resultButton.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+131, left: (view.frame.width/2)+20, bottom: (view.frame.height/3)+(view.safeAreaInsets.top+374), right: 20))
+        if isTableExpanded {
             
-        }
-        
-        swapButton.snp.makeConstraints { make in
-            make.width.equalTo(50)
-            make.height.equalTo(50)
-            make.centerX.equalToSuperview()
-            make.centerY.equalTo(secondCurr.snp.top).offset(-10)
-        }
-        
-        expandCurrButt.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+200, left: 20, bottom: view.safeAreaInsets.top+501, right: 20))
+            tableView.layer.opacity = 0
             
+            firstCurr.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: 20, bottom: view.frame.height/12, right: (view.frame.width/2)+20))
+            }
+            
+            secondCurr.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
+            }
+            
+            resultButton.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/24)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
+                
+            }
+            
+            swapButton.snp.makeConstraints { make in
+                make.width.equalTo(50)
+                make.height.equalTo(50)
+                make.centerX.equalToSuperview()
+                make.centerY.equalTo(secondCurr.snp.top).offset(-10)
+            }
+            
+            expandCurrButt.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height+20)-(view.frame.height/12)), left: 20, bottom: view.frame.height/48, right: 20))
+                
+            }
+        } else {
+            
+            tableView.layer.opacity = 1
+            
+            firstCurr.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+40, left: 20, bottom: (view.frame.height/3)+(view.safeAreaInsets.top+334), right: (view.frame.width/2)+20))
+            }
+            
+            secondCurr.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+40, left: (view.frame.width/2)+20, bottom: (view.frame.height/3)+(view.safeAreaInsets.top+334), right: 20))
+            }
+            
+            resultButton.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+131, left: (view.frame.width/2)+20, bottom: (view.frame.height/3)+(view.safeAreaInsets.top+374), right: 20))
+                
+            }
+            
+            swapButton.snp.makeConstraints { make in
+                make.width.equalTo(50)
+                make.height.equalTo(50)
+                make.centerX.equalToSuperview()
+                make.centerY.equalTo(secondCurr.snp.top).offset(-10)
+            }
+            
+            expandCurrButt.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+200, left: 20, bottom: view.safeAreaInsets.top+501, right: 20))
+                
+            }
         }
+        
+        isTableExpanded = !isTableExpanded
         
     }
 }
