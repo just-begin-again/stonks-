@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         
         configureTextField()
         configureButtons()
-        //configureTableView()
+        configureTableView()
         configureNestedMenusAndAnimation()
         configureButtons()
         
@@ -77,6 +77,7 @@ class ViewController: UIViewController {
                 self?.expandCurrButt.snp.makeConstraints { make in
                     self?.view.addSubview(self!.expandCurrButt)
                     self!.expandCurrButt.isHidden = false
+                    if self!.isTableExpanded { self!.expandCurrButt.isHidden = true}
                     self!.expandCurrButt.layer.opacity = 1.0
                     make.centerX.equalToSuperview()
                 }
@@ -102,6 +103,7 @@ class ViewController: UIViewController {
             
             animResultButton.startAnimation()
             animExpandButton.startAnimation()
+            tableView.reloadData()
         }
     }
     
@@ -222,6 +224,7 @@ class ViewController: UIViewController {
     
     func configureTableView() {
         view.addSubview(tableView)
+        tableView.layer.opacity = 0
         tableView.backgroundColor = C.colors.background
         tableView.delegate = self
         tableView.dataSource = self
@@ -401,79 +404,85 @@ class ViewController: UIViewController {
         })
 
         animFadeResultButton.startAnimation()
+        tableView.reloadData()
         
     }
     @objc func expandPressed() {
         
-        configureTableView()
+        
         
         if isTableExpanded {
             
             tableView.layer.opacity = 0
             
-            firstCurr.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: 20, bottom: view.frame.height/12, right: (view.frame.width/2)+20))
-            }
+            //код ниже не работает, будто констрейнты при первом разворачивании перманентны, хотя нижняя часть резалта уходит куда скажет новый констрейнт батам.
             
-            secondCurr.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
-            }
-            
-            resultButton.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/24)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
-                
-            }
-            
-            swapButton.snp.makeConstraints { make in
-                make.width.equalTo(50)
-                make.height.equalTo(50)
-                make.centerX.equalToSuperview()
-                make.centerY.equalTo(secondCurr.snp.top).offset(-10)
-            }
-            
-            expandCurrButt.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height+20)-(view.frame.height/12)), left: 20, bottom: view.frame.height/48, right: 20))
-                
-            }
+//            firstCurr.snp.makeConstraints { make in
+//                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: 20, bottom: view.frame.height/12, right: (view.frame.width/2)+20))
+//            }
+//
+//            secondCurr.snp.makeConstraints { make in
+//                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/12)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
+//            }
+//
+//            resultButton.snp.makeConstraints { make in
+//                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height-80)-(view.frame.height/24)), left: (view.frame.width/2)+20, bottom: view.frame.height/12, right: 20))
+//
+//            }
+//
+//            swapButton.snp.makeConstraints { make in
+//                make.width.equalTo(50)
+//                make.height.equalTo(50)
+//                make.centerX.equalToSuperview()
+//                make.centerY.equalTo(secondCurr.snp.top).offset(-10)
+//            }
+//
+//            expandCurrButt.snp.makeConstraints { make in
+//                make.edges.equalToSuperview().inset(UIEdgeInsets(top: ((view.frame.height+20)-(view.frame.height/12)), left: 20, bottom: view.frame.height/48, right: 20))
+//
+//            }
         } else {
             
-            tableView.layer.opacity = 1
-            
-            firstCurr.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+40, left: 20, bottom: (view.frame.height/3)+(view.safeAreaInsets.top+334), right: (view.frame.width/2)+20))
-            }
-            
-            secondCurr.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+40, left: (view.frame.width/2)+20, bottom: (view.frame.height/3)+(view.safeAreaInsets.top+334), right: 20))
-            }
-            
-            resultButton.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+131, left: (view.frame.width/2)+20, bottom: (view.frame.height/3)+(view.safeAreaInsets.top+374), right: 20))
+            let animExpand = UIViewPropertyAnimator(duration: 0.3, curve: UIView.AnimationCurve.linear, animations: { [weak self] in
                 
-            }
-            
-            swapButton.snp.makeConstraints { make in
-                make.width.equalTo(50)
-                make.height.equalTo(50)
-                make.centerX.equalToSuperview()
-                make.centerY.equalTo(secondCurr.snp.top).offset(-10)
-            }
-            
-            expandCurrButt.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(UIEdgeInsets(top: view.safeAreaInsets.top+200, left: 20, bottom: view.safeAreaInsets.top+501, right: 20))
                 
-            }
+                self?.tableView.layer.opacity = 1
+                self?.expandCurrButt.layer.opacity = 0
+                self?.expandCurrButt.isUserInteractionEnabled = false
+                
+                
+                self?.firstCurr.snp.makeConstraints { make in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top: self!.view.safeAreaInsets.top+40, left: 20, bottom: (self!.view.frame.height/3)+(self!.view.safeAreaInsets.top+334), right: (self!.view.frame.width/2)+20))
+                }
+                
+                self?.secondCurr.snp.makeConstraints { make in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top: self!.view.safeAreaInsets.top+40, left: (self!.view.frame.width/2)+20, bottom: (self!.view.frame.height/3)+(self!.view.safeAreaInsets.top+334), right: 20))
+                }
+                
+                self?.resultButton.snp.makeConstraints { make in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top: self!.view.safeAreaInsets.top+131, left: (self!.view.frame.width/2)+20, bottom: (self!.view.frame.height/3)+(self!.view.safeAreaInsets.top+374), right: 20))
+                    
+                }
+                
+                self?.swapButton.snp.makeConstraints { make in
+                    make.width.equalTo(50)
+                    make.height.equalTo(50)
+                    make.centerX.equalToSuperview()
+                    make.centerY.equalTo(self!.secondCurr.snp.top).offset(-10)
+                }
+                
+                self?.expandCurrButt.snp.makeConstraints { make in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top: self!.view.safeAreaInsets.top+200, left: 20, bottom: self!.view.safeAreaInsets.top+501, right: 20))
+                    
+                }
+                
+                self?.view.layoutIfNeeded()
+            })
+            animExpand.startAnimation()
         }
         
         isTableExpanded = !isTableExpanded
         
-    }
-}
-
-//MARK: - UIPopoverPresentationControllerDelegate
-extension ViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
     }
 }
 
@@ -493,7 +502,16 @@ extension ViewController: UITableViewDataSource {
         
         cell.flagImageView.image = UIImage(named: currency.code.lowercased())
         
-        let numberStr = (String(format: "%.2f", (1.0/currency.rateToRub))).replacingOccurrences(of: ".", with: ".")
+        var cellToFirstRate = 0.0
+        var amount = 0.0
+        if firstCurr.titleLabel?.text != nil && firstCurr.titleLabel?.text != "1" {
+            cellToFirstRate = currency.rateToRub / netContr.currenciesDict[firstCurr.titleLabel!.text!]!
+            amount = Double(firstTextField.text!) ?? 1
+        }
+        
+                    
+        
+        let numberStr = (amount * cellToFirstRate).formattedWithSeparator
         
         cell.currencyLabel.text = "\(currency.code.uppercased())"
         cell.numberLabel.text = numberStr
@@ -506,8 +524,6 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     
 }
-
-
 //MARK: - UITextFieldDelegate
 extension ViewController: UITextFieldDelegate {
     
@@ -537,14 +553,3 @@ extension ViewController: UITextFieldDelegate {
         }
     }
 }
-
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showPopOver" {
-//            if let view = segue.destination as? CollectionViewController {
-//                view.popoverPresentationController?.delegate = self
-//                view.preferredContentSize = CGSize(width: 160, height: 100)
-//                view.delegate = self
-//            }
-//        }
-//    }
